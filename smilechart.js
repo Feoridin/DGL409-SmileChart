@@ -31,12 +31,7 @@ var firebaseConfig = {
     appId: "1:587821176763:web:e9e9a293cd59725320969e",
     measurementId: "G-QSD6CP8DG3"
     };
-
-    firebase.initializeApp(firebaseConfig);
-
-
-  
-
+firebase.initializeApp(firebaseConfig);
 //uploading file in storage
     function uploadImage(){
         var type = getInputVal('types');
@@ -47,7 +42,7 @@ var firebaseConfig = {
         thisref.on('state_changed',function(snapshot) {
         }, function(error) { 
         }, function() {
- // Uploaded completed successfully, now we can get the download URL
+// Uploaded completed successfully, now we can get the download URL
     thisref.snapshot.ref.getDownloadURL().then(function(downloadURL) {
 //getting url of image
    document.getElementById("url").value=downloadURL;
@@ -62,9 +57,7 @@ var firebaseConfig = {
  // saveMessage(url);
     }
     function getInputVal(id){
-   document.getElementById('contactForm').reset();
-
-    }
+   document.getElementById('contactForm').reset();}
 
 // Function to get form values
     function getInputVal(id){
@@ -78,3 +71,32 @@ var firebaseConfig = {
     imageurl:url,
      });
     }
+//Disply images references
+    const uploadButton = document.getElementById('upload');
+// Reference to Firebase Storage
+    const storage2 = firebase.storage();
+// Reference to the folder where your images are stored
+    const imagesRef = storage2.ref("Teeth/");
+// Function to fetch and display images
+    function displayImages() {
+        imagesRef.listAll().then(function (result) {
+            result.items.forEach(function (imageRef) {
+                // Get the download URL for each image
+                imageRef.getDownloadURL().then(function (url) {
+                    const imageElement = document.createElement("img");
+                    imageElement.src = url;
+                    document.getElementById("image-container").appendChild(imageElement);
+                    console.log(imageElement);
+                }).catch(function (error) {
+                    console.error("Error getting download URL:", error);
+                });
+            });
+           
+        }).catch(function (error) {
+            console.error("Error listing images:", error);
+        });
+    }
+// Call the function to display images
+    uploadButton.addEventListener("click",function(){
+        displayImages();
+    });
