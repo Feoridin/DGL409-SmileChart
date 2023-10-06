@@ -73,6 +73,7 @@ firebase.initializeApp(firebaseConfig);
     }
 //Disply images references
     const uploadButton = document.getElementById('upload');
+    const uploadButton2 = document.getElementById('upload2');
 // Reference to Firebase Storage
     const storage2 = firebase.storage();
 // Reference to the folder where your images are stored
@@ -98,8 +99,12 @@ firebase.initializeApp(firebaseConfig);
     }
 // Call the function to display images
     uploadButton.addEventListener("click",function(){
-        displayImages();
+        uploadImage();
     });
+// Call the function to upload images
+uploadButton2.addEventListener("click",function(){
+    displayImages();
+});
    
 //Canvas Function
 const canvas = document.getElementById('drawing-board');
@@ -149,7 +154,7 @@ const draw = (e) => {
 canvas.addEventListener('mousedown', (e) => {
     isPainting = true;
     startX = e.clientX - canvas.offsetLeft;
-    startY = e.clientY -  1000;
+    startY = e.clientY -  canvas.offsetTop;
 });
 
 canvas.addEventListener('mouseup', e => {
