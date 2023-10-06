@@ -8,6 +8,8 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <script src="https://www.gstatic.com/firebasejs/3.7.4/firebase.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-storage.js"></script>
 <style>
 html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
 </style>
@@ -39,19 +41,43 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
   <hr>
   <div class="w3-container">
     <h5>XRAY Images</h5>
+    <form class="container" id="contactForm2">
+      <div class="card">
+          <div class="card-body">
+              <div class="form-group"
+                   style="margin-left: 15px; 
+                          margin-top: 2px;
+                          display:none">
+  <label for="exampleFormControlSelect1 ">Select Type</label>
+  <select class="form-control" id="types">
+    <option>Teeth</option>
+  </select>
+</div>
+    <!-- click here to choose file -->
     <input type="file" name="files[] " id="files">
     <!-- click here to upload file -->
     <input type="hidden "
            name="url"
            id="url">    
-           <button class="w3-round w3-teal w3-hover-border-orange" type="button" onclick="uploadImage()">
+           <button class="w3-round w3-teal w3-hover-border-orange" type="button"  id="upload">
                Upload Image
             </button>
+           <br><br>
+  </div>
+</div>
+ 
+<button type="submit "
+        class="btn btn-primary "
+        style="margin-left: 15px; margin-top: 10px; display:none">
+                Submit
+  </button>
+ 
+</form>
     
   </div>
-  <div class="w3-bar-block">
-    
-  </div>
+  <div class = "w3-bar-block">
+    <div class = "container w3-bar-block" id="image-container"></div>
+  </div> 
 </nav>
 
 <!-- Overlay effect when opening sidebar on small screens -->
