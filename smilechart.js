@@ -111,7 +111,7 @@ const canvas = document.getElementById('drawing-board');
 const toolbar = document.getElementById('toolbar');
 const ctx = canvas.getContext('2d');
 
-const canvasOffsetX = canvas.offsetLeft;
+const canvasOffsetX = 10;
 const canvasOffsetY = canvas.offsetTop;
 
 canvas.width = window.innerWidth - canvasOffsetX;
@@ -153,8 +153,8 @@ const draw = (e) => {
 
 canvas.addEventListener('mousedown', (e) => {
     isPainting = true;
-    startX = e.clientX - canvas.offsetLeft;
-    startY = e.clientY -  canvas.offsetTop;
+    startX = e.clientX;
+    startY = e.clientY;
 });
 
 canvas.addEventListener('mouseup', e => {
