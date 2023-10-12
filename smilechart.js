@@ -89,16 +89,15 @@ firebase.initializeApp(firebaseConfig);
                     const imageElement = document.createElement("img");
                     imageElement.className = ('d-flex p-2 w-100');
                     imageElement.setAttribute('id','upImage');
+                    imageElement.setAttribute('onclick',"document.getElementById('modal01').style.display='block'");
                     imageElement.src = url;
                     document.getElementById("image-container").appendChild(imageElement);
                     console.log(imageElement);
-                    imageDisplay = true;
-                    
+                    imageDisplay = true;            
                 }).catch(function (error) {
                     console.error("Error getting download URL:", error);
                 });
-            });
-           
+            });          
         }).catch(function (error) {
             console.error("Error listing images:", error);
         });
@@ -112,7 +111,6 @@ uploadButton2.addEventListener("click",function(){
     if(imageDisplay==true){
         clearAttribute();
     }
-    
     displayImages();
 });
 clearButton.addEventListener("click",function(){
@@ -189,10 +187,38 @@ canvas.addEventListener('mouseup', e => {
 canvas.addEventListener('mousemove', draw);
 
  //Blows up xray images when clicked
-
-img.addEventListener("click",blowsUp);
-function blowsUp(){
-
+function showurl(){
+    displayImages2();
+    if(imageDisplay==true){
+        clearAttribute2();
+    }
+    
+              
 }
+function displayImages2() {
+    imagesRef.listAll().then(function (result) {
+        result.items.forEach(function (imageRef) {
+            // Get the download URL for each image
+            imageRef.getDownloadURL().then(function (url) {
+                const imageElement = document.createElement("img");
+                imageElement.className = ('d-flex p-2 w-100');
+                imageElement.setAttribute('id','upImage');
+                imageElement.src = url;
+                document.getElementById("image-container2").appendChild(imageElement);
+                imageDisplay = true;            
+            }).catch(function (error) {
+                console.error("Error getting download URL:", error);
+            });
+        });          
+    }).catch(function (error) {
+        console.error("Error listing images:", error);
+    });
+} 
 
+function clearAttribute2(){
+    const list = document.getElementById("image-container2");
 
+    while (list.hasChildNodes()) {
+      list.removeChild(list.firstChild);
+    }
+ }
