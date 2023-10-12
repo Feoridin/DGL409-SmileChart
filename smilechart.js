@@ -111,11 +111,11 @@ const canvas = document.getElementById('drawing-board');
 const toolbar = document.getElementById('toolbar');
 const ctx = canvas.getContext('2d');
 
-const canvasOffsetX = 10;
+const canvasOffsetX = canvas.offsetLeft;
 const canvasOffsetY = canvas.offsetTop;
 
-canvas.width = window.innerWidth - canvasOffsetX;
-canvas.height = window.innerHeight - canvasOffsetY;
+canvas.width = canvas.offsetWidth;
+canvas.height = canvas.offsetHeight;
 
 let isPainting = false;
 let lineWidth = 5;
@@ -143,18 +143,20 @@ const draw = (e) => {
     if(!isPainting) {
         return;
     }
-
+    snapshot = ctx.getImageData(0, 0, canvas.width, canvas.height);
     ctx.lineWidth = lineWidth;
     ctx.lineCap = 'round';
 
-    ctx.lineTo(e.clientX - canvasOffsetX, e.clientY);
+    ctx.lineTo(e.offsetX, e.offsetY);
     ctx.stroke();
 }
 
 canvas.addEventListener('mousedown', (e) => {
     isPainting = true;
-    startX = e.clientX;
-    startY = e.clientY;
+    prevMouseX = e.offsetX; // passing current mouseX position as prevMouseX value
+    prevMouseY = e.offsetY; // passing current mouseY position as prevMouseY value
+    ctx.beginPath(); // creating new path to draw
+    snapshot = ctx.getImageData(0, 0, canvas.width, canvas.height);
 });
 
 canvas.addEventListener('mouseup', e => {
