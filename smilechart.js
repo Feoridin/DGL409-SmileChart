@@ -222,3 +222,84 @@ function clearAttribute2(){
       list.removeChild(list.firstChild);
     }
  }
+//touchscreen
+const viewport = window.visualViewport;
+const context = canvas.getContext('2d');
+function startup() {
+    canvas.addEventListener('touchstart', handleStart);
+    canvas.addEventListener('touchend', handleEnd);
+    canvas.addEventListener('touchcancel', handleCancel);
+    canvas.addEventListener('touchmove', handleMove);
+  }
+  
+  document.addEventListener("DOMContentLoaded", startup);
+  
+  const ongoingTouches = [];
+  
+  function handleStart(evt) {
+    evt.preventDefault();
+    const touches = evt.changedTouches;
+    offsetX = canvas.getBoundingClientRect().left;
+    offsetY = canvas.getBoundingClientRect().top;
+    console.log(offsetX, offsetY)
+    for (let i = 0; i < touches.length; i++) {
+      ongoingTouches.push(copyTouch(touches[i]));
+    }
+  }
+  
+  function handleMove(evt) {
+    evt.preventDefault();
+    const touches = evt.changedTouches;
+    for (let i = 0; i < touches.length; i++) {
+      const color = document.getElementById('stroke').value;
+      const idx = ongoingTouchIndexById(touches[i].identifier);
+      if (idx >= 0) {
+        context.beginPath();
+        context.moveTo(ongoingTouches[idx].clientX - offsetX, ongoingTouches[idx].clientY - offsetY);
+        context.lineTo(touches[i].clientX - offsetX, touches[i].clientY - offsetY);
+        context.lineWidth = document.getElementById('lineWidth').value;
+        context.strokeStyle = color;
+        context.lineJoin = "round";
+        context.closePath();
+        context.stroke();
+        ongoingTouches.splice(idx, 1, copyTouch(touches[i]));  // swap in the new touch record
+      }
+    }
+  }
+  
+  function handleEnd(evt) {
+    evt.preventDefault();
+    const touches = evt.changedTouches;
+    for (let i = 0; i < touches.length; i++) {
+      const color = document.getElementById('stroke').value;
+      let idx = ongoingTouchIndexById(touches[i].identifier);
+      if (idx >= 0) {
+        context.lineWidth = document.getElementById('lineWidth').value;
+        context.fillStyle = color;
+        ongoingTouches.splice(idx, 1);  // remove it; we're done
+      }
+    }
+  }
+  
+  function handleCancel(evt) {
+    evt.preventDefault();
+    const touches = evt.changedTouches;
+    for (let i = 0; i < touches.length; i++) {
+      let idx = ongoingTouchIndexById(touches[i].identifier);
+      ongoingTouches.splice(idx, 1);  // remove it; we're done
+    }
+  }
+  
+  function copyTouch({ identifier, clientX, clientY }) {
+    return { identifier, clientX, clientY };
+  }
+  
+  function ongoingTouchIndexById(idToFind) {
+    for (let i = 0; i < ongoingTouches.length; i++) {
+      const id = ongoingTouches[i].identifier;
+      if (id === idToFind) {
+        return i;
+      }
+    }
+    return -1;    // not found
+  }
