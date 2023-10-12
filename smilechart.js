@@ -74,6 +74,8 @@ firebase.initializeApp(firebaseConfig);
 //Disply images references
     const uploadButton = document.getElementById('upload');
     const uploadButton2 = document.getElementById('upload2');
+    const clearButton = document.getElementById('clearUp');
+    var imageDisplay = false;
 // Reference to Firebase Storage
     const storage2 = firebase.storage();
 // Reference to the folder where your images are stored
@@ -85,9 +87,13 @@ firebase.initializeApp(firebaseConfig);
                 // Get the download URL for each image
                 imageRef.getDownloadURL().then(function (url) {
                     const imageElement = document.createElement("img");
+                    imageElement.className = ('d-flex p-2 w-100');
+                    imageElement.setAttribute('id','upImage');
                     imageElement.src = url;
                     document.getElementById("image-container").appendChild(imageElement);
                     console.log(imageElement);
+                    imageDisplay = true;
+                    
                 }).catch(function (error) {
                     console.error("Error getting download URL:", error);
                 });
@@ -103,8 +109,23 @@ firebase.initializeApp(firebaseConfig);
     });
 // Call the function to upload images
 uploadButton2.addEventListener("click",function(){
+    if(imageDisplay==true){
+        clearAttribute();
+    }
+    
     displayImages();
 });
+clearButton.addEventListener("click",function(){
+    clearAttribute();
+    console.log(imageDisplay);
+});
+function clearAttribute(){
+    const list = document.getElementById("image-container");
+
+    while (list.hasChildNodes()) {
+      list.removeChild(list.firstChild);
+    }
+ }
    
 //Canvas Function
 const canvas = document.getElementById('drawing-board');
@@ -167,6 +188,11 @@ canvas.addEventListener('mouseup', e => {
 
 canvas.addEventListener('mousemove', draw);
 
- 
+ //Blows up xray images when clicked
+
+img.addEventListener("click",blowsUp);
+function blowsUp(){
+
+}
 
 
