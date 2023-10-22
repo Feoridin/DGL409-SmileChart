@@ -20,6 +20,7 @@ function w3_close() {
   mySidebar.style.display = "none";
   overlayBg.style.display = "none";
 }
+
 //Initialize Firebase
 var firebaseConfig = {
     apiKey: "AIzaSyC4vkPVUjbqnGAoDGmXLFYm5WOuR4-PhyQ",
@@ -140,6 +141,14 @@ let isPainting = false;
 let lineWidth = 5;
 let startX;
 let startY;
+
+//Set Background Image Canva
+const backgroundImage = new Image();
+backgroundImage.src = "Images/ToothChart.jpg";
+
+backgroundImage.onload = function () {
+  context.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height);
+};
 
 toolbar.addEventListener('click', e => {
     if (e.target.id === 'clear') {
