@@ -110,8 +110,9 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
       <input id="lineWidth" name='lineWidth' type="number" value="5">
       <button id="clear">Clear</button>
   </div>
-  <div class="container drawing-board">
-    <canvas class="w3-image vh-100" id="drawing-board"></canvas>
+  <div class="container w3-container drawing-board" style="overflow-x:scroll">
+    <canvas class="d-flex mx-auto" height="674" width="837"
+    id="drawing-board"></canvas>
   </div> 
 </div>
 <div id="modal01" class="w3-modal" onclick="showurl();this.style.display='none'">
