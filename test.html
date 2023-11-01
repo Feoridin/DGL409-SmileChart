@@ -41,10 +41,11 @@
 
     const db = getDatabase(app);
     //const recentPostRef = query(ref(db,"Patient"), limitToLast(100));
-    const recentPostRef =ref(db,"Patient")
+    const recentPostRef =ref(db,"Patient");
     onValue(recentPostRef, (snapshot) => {
         snapshot.forEach((childSnapshot) => {
             console.log('childsnapshot onValue', childSnapshot.key, childSnapshot.val())
+            console.log(childSnapshot.val())
         })
     })
 
