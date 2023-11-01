@@ -90,27 +90,27 @@
     <form id="myForm" class = "w3-container">
 <div class="w3-row-padding">
     <div class="w3-quarter">  
-    <label>PatientId</label><input  class="w3-input w3-border" id="idBox" type="text">
+    <label>PatientId</label><input  class="w3-input w3-border" id="idBox" type="text" required>
     </div>
 </div><br>
 <div class="w3-row-padding">
     <div class="w3-half">
       <label>First Name</label>
-      <input class="w3-input w3-border" id="firstName"type="text" placeholder="">
+      <input class="w3-input w3-border" id="firstName"type="text" placeholder="" required>
     </div>
     <div class="w3-half">
       <label>Last Name</label>
-      <input class="w3-input w3-border" id="lastName" type="text" placeholder="">
+      <input class="w3-input w3-border" id="lastName" type="text" placeholder="" required>
     </div>
   </div><br>
 <div class="w3-row-padding">
     <div class="w3-quarter">
-    <label>Contact Number</label><input  id="contactBox" type="text"></input><br><br>
+    <label>Contact Number</label><input  id="contactBox" type="text" required></input><br><br>
     </div>
 </div>
 <div class="w3-row-padding">
     <div class="w3-quarter"> 
-    <label>Email</label><input id="emailBox" type="text"></input> <br><br>
+    <label>Email</label><input id="emailBox" type="text" required></input> <br><br>
     </div>
 </div>
 <div class="w3-row-padding">
@@ -122,6 +122,7 @@
     </select><br><br>
     </div>
 </div><br>
+
 </form>
 <div class="w3-container w3-row-padding">
     <button class="w3-round w3-teal w3-hover-border-orange" id = "insertButton">INSERT</button>
@@ -183,7 +184,7 @@
         var delbtn = document.getElementById("deleteButton");
         var clrbtn = document.getElementById("clearButton");
 //--------INSERT DATA FUNCTION--------------//
-        function InsertData(){          
+        function InsertData(){         
             set(ref(db, "Patient/"+patientid.value),{
                 PatientFirstName: fname.value,
                 PatientLastName: lname.value,
