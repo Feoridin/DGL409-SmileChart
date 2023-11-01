@@ -16,5 +16,32 @@
             <th>gender</th>
         </thead>
     </table>
+<script>
+//---FILLING THE TABLE---//
+function AddItemtoTable(patientid, fname, lname, contact, email, genbox){
+    let trow = document.createElement("trow");
+    let td1 = document.createElement('td');
+    let td2 = document.createElement('td');
+    let td3 = document.createElement('td');
+    let td4 = document.createElement('td');
+    let td5 = document.createElement('td');
+    let td6 = document.createElement('td');
+
+    td1.innerHTML = patientid;
+    td2.innerHTML = fname;
+    td3.innerHTML = lname;
+    td4.innerHTML = contact;
+    td5.innerHTML = email;
+    td6.innerHTML = gender;
+
+    trow.appendChild(td1);
+    trow.appendChild(td2);
+    trow.appendChild(td3);
+    trow.appendChild(td4);
+    trow.appendChild(td5);
+    trow.appendChild(td6);
+}
+
+</script>
 </body>
 </html>
