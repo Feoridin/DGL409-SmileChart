@@ -17,12 +17,14 @@
                 <th>Contact</th>
                 <th>Email</th>
                 <th>Gender</th>
+                <th>Control Center</th>
             </tr>
         </thead>
         <tbody>
         </tbody>
     </table>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 
     <script type = "module">
 
@@ -60,9 +62,13 @@
             console.log('childsnapshot onValue', childSnapshot.key, childSnapshot.val())
             console.log(childSnapshot.key);
 
+
+            /* Clear the existing table content - Before inserting new rows into the table, 
+            we clear the existing content within the table body using a while loop to remove all child elements.*/
             while (tableBody.firstChild) {
             tableBody.removeChild(tableBody.firstChild);
             }
+
             for (var i = 0; i < patients.length; i++) {
             var row = tableBody.insertRow(i);
             var cell1 = row.insertCell(0);
