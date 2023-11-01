@@ -186,6 +186,7 @@
 //--------INSERT DATA FUNCTION--------------//
         function InsertData(){         
             set(ref(db, "Patient/"+patientid.value),{
+                PatientID: patientid.value,
                 PatientFirstName: fname.value,
                 PatientLastName: lname.value,
                 Contact: contact.value,
