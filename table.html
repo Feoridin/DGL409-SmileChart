@@ -3,21 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <title>Document</title>
 </head>
 <body>
-    <table>
-        <thead>
-            <th>PatientId</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Contact Number</th>
-            <th>email</th>
-            <th>gender</th>
-        </thead>
-    </table>
+    <div class = "container mt-3">
+        <table class = "table table-secondary table striped">
+            <thead>
+                <th>PatientId</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Contact Number</th>
+                <th>Email</th>
+                <th>Gender</th>
+            </thead>
+            <tbody id = "tbody1"></tbody>
+        </table>
+    </div>
 <script>
 //---FILLING THE TABLE---//
+var tbody = document.getElementById('tbody1');
+
 function AddItemtoTable(patientid, fname, lname, contact, email, genbox){
     let trow = document.createElement("trow");
     let td1 = document.createElement('td');
@@ -40,8 +46,17 @@ function AddItemtoTable(patientid, fname, lname, contact, email, genbox){
     trow.appendChild(td4);
     trow.appendChild(td5);
     trow.appendChild(td6);
+
+    tbody.appendChild(trow);
 }
 
+function AddAllItemsToTable(Patient){
+    tbody = "";
+    Patient.forEach(element =>{
+        AddItemtoTable(element.PatientFirstName, element.PatientLastName, element.Contact, element.Email, element.Gender);
+    })
+}
+//--IMPORT FIREBASE CONFIG---//
 </script>
 </body>
 </html>
