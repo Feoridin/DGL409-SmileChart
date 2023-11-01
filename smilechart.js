@@ -147,16 +147,22 @@ const backgroundImage = new Image();
 backgroundImage.src = "Images/ToothChart.jpg";
 
 backgroundImage.onload = function () {
-  context.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height);
+  ctx.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height);
 };
 
 toolbar.addEventListener('click', e => {
     if (e.target.id === 'clear') {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
+        const backgroundImage = new Image();
+backgroundImage.src = "Images/ToothChart.jpg";
+        backgroundImage.onload = function () {
+          ctx.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height);
+        };
     }
 });
 
 toolbar.addEventListener('change', e => {
+
     if(e.target.id === 'stroke') {
         ctx.strokeStyle = e.target.value;
     }
@@ -171,10 +177,10 @@ const draw = (e) => {
     if(!isPainting) {
         return;
     }
-    snapshot = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    snapshot = context.getImageData(0, 0, canvas.width, canvas.height);
     ctx.lineWidth = lineWidth;
     ctx.lineCap = 'round';
-
+    
     ctx.lineTo(e.offsetX, e.offsetY);
     ctx.stroke();
 }
@@ -191,6 +197,7 @@ canvas.addEventListener('mouseup', e => {
     isPainting = false;
     ctx.stroke();
     ctx.beginPath();
+    
 });
 
 canvas.addEventListener('mousemove', draw);
@@ -234,6 +241,7 @@ function clearAttribute2(){
 //touchscreen
 const viewport = window.visualViewport;
 const context = canvas.getContext('2d');
+
 function startup() {
     canvas.addEventListener('touchstart', handleStart);
     canvas.addEventListener('touchend', handleEnd);
