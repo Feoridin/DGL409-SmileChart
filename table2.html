@@ -32,7 +32,7 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                    <h5 class="modal-title" id="exampleModalLongTitle">Patient Information</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">X</span>
                     </button>
@@ -80,12 +80,10 @@
                     </div>
                 </div><!-- end Display patient details-->
                 <div class="modal-footer">
-                    <button class="w3-round w3-teal w3-hover-border-orange" id = "selectButton">SELECT</button>
                     <button class="w3-round w3-teal w3-hover-border-orange" id = "updateButton">UPDATE</button>
-                    <button class="w3-round w3-teal w3-hover-border-orange" id = "deleteButton">DELETE</button>
                     <button class="w3-round w3-teal w3-hover-border-orange" id = "clearButton">CLEAR</button>
-                    <button type="button" class="w3-round w3-teal w3-hover-border-orange" data-dismiss="modal">Close</button>
-                    <button type="button" class="w3-round w3-teal w3-hover-border-orange">Save changes</button>
+                    <button class="w3-round w3-teal w3-hover-border-orange" data-dismiss="modal">CLOSE</button>
+                    <button class="w3-round w3-teal w3-hover-border-orange" id = "updateButton2" hidden>SAVE CHANGES</button>
                 </div>
             </div>
         </div>
@@ -93,12 +91,7 @@
   
   
     </div>
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
-        Launch demo modal
-      </button>
 
-
-  
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
@@ -171,7 +164,7 @@
         cell6.appendChild(button);
         button.innerHTML = "Edit"; // Set the button text
         // Add a click event listener to the button and pass the row index
-    button.addEventListener("click", function (index) {
+        button.addEventListener("click", function (index) {
         return function () {
             editPatient(index);
         };
@@ -179,14 +172,68 @@
         cell7.appendChild(button); // button in the last cell
         }
         })
-        function editPatient(rowIndex){
-            console.log(rowIndex);
-            
-    }
+     
     })
         // Get a reference to the table body
         var tableBody = document.getElementById("myTable").getElementsByTagName('tbody')[0];
- 
+    
+    function editPatient(rowIndex){
+         
+         patientIdrow = rowIndex+1;
+         SelectData();
+        }
+//--------References--------------//
+        var patientid = document.getElementById("idBox");
+        var fname = document.getElementById("firstName");
+        var lname = document.getElementById("lastName");
+        var contact = document.getElementById("contactBox");
+        var email = document.getElementById("emailBox");
+        var genbox = document.getElementById("GenBox");
+        var patientIdrow = 0;
+
+        var updbtn = document.getElementById("updateButton");
+        
+    function SelectData(){
+    const dbref = ref(db);
+    get(child(dbref,"Patient/"+patientIdrow)).then((snapshot)=>{
+        if(snapshot.exists()){
+            patientid.value = snapshot.val().PatientID;
+            fname.value = snapshot.val().PatientFirstName;
+            lname.value = snapshot.val().PatientLastName;
+            contact.value = snapshot.val().Contact;
+            email.value = snapshot.val().Email;
+            genbox.value = snapshot.val().Gender;
+        }
+        else{
+            alert("No Data Found");
+        }
+    })
+    .catch((error)=>{
+    alert("unsuccesful, error"+error);
+    })
+    }
+    //--------UPDATE DATA FUNCTION--------------//
+    function UpdateData(){
+    const dbref = ref(db);
+    update(ref(db, "Patient/"+patientIdrow),{
+                PatientFirstName: fname.value,
+                PatientLastName: lname.value,
+                Contact: contact.value,
+                Gender: genbox.value
+            })
+            .then(()=>{
+                alert("data stored successfully");
+            })
+            .catch((error)=>{
+                alert("unsuccessful, error"+error);
+            });
+        }
+//--------ASSIGN EVENTS TO BUTTONS--------------//
+        
+        
+        updbtn.addEventListener('click',UpdateData);
+        
+       
     </script>
 </body>
 </html>
