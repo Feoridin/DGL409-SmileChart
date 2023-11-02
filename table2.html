@@ -30,27 +30,64 @@
     <!-- Vertically centered modal -->
     <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">X</span>
+                    </button>
+                </div>
+                <div class="modal-body" style="margin-top: -20px;"><!-- Display patient details here -->
+                    <div class="w3-main"><br><br>
+                        <form id="myForm" class = "w3-container">
+                            <div class="w3-row-padding">
+                                <div class="w3-half">  
+                                    <label>PatientId</label><input  class="w3-input w3-border" id="idBox" type="text" readonly>
+                                </div>
+                            </div><br>
+                            <div class="w3-row-padding">
+                                <div class="w3-col">
+                                    <label>First Name</label>
+                                    <input class="w3-input w3-border" id="firstName"type="text" placeholder="" required>
+                                </div>
+                            </div>
+                            <div class="w3-row-padding">
+                                <div class="w3-col">
+                                    <label>Last Name</label>
+                                    <input class="w3-input w3-border" id="lastName" type="text" placeholder="" required>
+                                </div>
+                            </div><br>
+                            <div class="w3-row-padding">
+                                <div class="w3-half">
+                                    <label>Contact Number</label><input class="w3-input w3-border" id="contactBox" type="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="123-456-7890" required></input><br>
+                                </div>
+                            </div>
+                            <div class="w3-row-padding">
+                                <div class="w3-half"> 
+                                    <label>Email</label><input class="w3-input w3-border" id="emailBox" type="email" required></input><br>
+                                </div>
+                            </div>
+                            <div class="w3-row-padding">
+                                <div class="w3-half">
+                                    <label>Gender</label>
+                                    <select id="GenBox" class="w3-input w3-border">
+                                        <option value="Male">Male</option>
+                                        <option value="Female">Female</option>
+                                    </select><br><br>
+                                </div>
+                            </div><br>
+                        </form>
+                    </div>
+                </div><!-- end Display patient details-->
+                <div class="modal-footer">
+                    <button class="w3-round w3-teal w3-hover-border-orange" id = "selectButton">SELECT</button>
+                    <button class="w3-round w3-teal w3-hover-border-orange" id = "updateButton">UPDATE</button>
+                    <button class="w3-round w3-teal w3-hover-border-orange" id = "deleteButton">DELETE</button>
+                    <button class="w3-round w3-teal w3-hover-border-orange" id = "clearButton">CLEAR</button>
+                    <button type="button" class="w3-round w3-teal w3-hover-border-orange" data-dismiss="modal">Close</button>
+                    <button type="button" class="w3-round w3-teal w3-hover-border-orange">Save changes</button>
+                </div>
             </div>
-            <div class="modal-body">
-              <!-- Display patient details here -->
-        <p>Patient ID: <span id="modalPatientID"></span></p>
-        <p>First Name: <span id="modalFirstName"></span></p>
-        <p>Last Name: <span id="modalLastName"></span></p>
-        <p>Contact: <span id="modalContact"></span></p>
-        <p>Email: <span id="modalEmail"></span></p>
-        <p>Gender: <span id="modalGender"></span></p>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
-          </div>
         </div>
       </div>
   
@@ -91,6 +128,8 @@
 
     import {getDatabase, ref, get, set, child, update, remove, query, limitToLast, onValue, onChildAdded, onChildChanged}
     from "https://www.gstatic.com/firebasejs/10.5.0/firebase-database.js";
+    import {getStorage, ref as sRef, uploadBytesResumable, getDownloadURL}
+    from "https://www.gstatic.com/firebasejs/10.5.0/firebase-storage.js";
     const db = getDatabase(app);
     //const recentPostRef = query(ref(db,"Patient"), limitToLast(100));
     const recentPostRef =ref(db,"Patient");
@@ -98,10 +137,6 @@
         var patients = []
         snapshot.forEach((childSnapshot) => {
             patients.push(childSnapshot.val())
-            console.log('childsnapshot onValue', childSnapshot.key, childSnapshot.val())
-            console.log(childSnapshot.key);
-
-
             /* Clear the existing table content - Before inserting new rows into the table, 
             we clear the existing content within the table body using a while loop to remove all child elements.*/
             while (tableBody.firstChild) {
@@ -135,22 +170,23 @@
         button.classList.add("btn","w3-round", "w3-teal", "w3-hover-border-orange"); // Add a class for styling
         cell6.appendChild(button);
         button.innerHTML = "Edit"; // Set the button text
-        button.addEventListener("click", function() {
-            // Add the click event handler for the button here
-            
-        });
-        cell7.appendChild(button); // Assuming you want the button in the last cell
-
-            
-
+        // Add a click event listener to the button and pass the row index
+    button.addEventListener("click", function (index) {
+        return function () {
+            editPatient(index);
+        };
+    }(i));
+        cell7.appendChild(button); // button in the last cell
         }
         })
+        function editPatient(rowIndex){
+            console.log(rowIndex);
+            
+    }
     })
         // Get a reference to the table body
         var tableBody = document.getElementById("myTable").getElementsByTagName('tbody')[0];
-
-        
-
+ 
     </script>
 </body>
 </html>
