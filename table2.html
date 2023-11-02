@@ -13,8 +13,8 @@
         <div class="col-md-2">
         <select class="form-control" id="Category">
             <option selected>By First Name</option>
-            <option value="1">By Last Name</option>
-            <option value="2">By Patiet ID</option>
+            <option>By Last Name</option>
+            <option>By Patient ID</option>
           </select>
         </div>
         <button id="searchBtn" class="w3-round w3-grey w3-hover-border-orange" type="button">SEARCH</button>
@@ -271,20 +271,23 @@ function SearchTable(){
   table = document.getElementById("myTable");
   tr = table.getElementsByTagName("tr");
   console.log(category.value);
-  if (category = "By First Name"){
+  
+  if (category.value === "By First Name"){
+    
   for (i = 0; i < tr.length; i++) {
     td = tr[i].getElementsByTagName("td")[1];
     if (td) {
       txtValue = td.textContent || td.innerText
       if (txtValue.toUpperCase().indexOf(filter) > -1) {
         tr[i].style.display = "";
-      } else {
+      }  else {
         tr[i].style.display = "none";
       }
     }       
   }
 }
-if (category = "By Last Name"){
+if (category.value === "By Last Name"){
+    
   for (i = 0; i < tr.length; i++) {
     td = tr[i].getElementsByTagName("td")[2];
     if (td) {
@@ -297,19 +300,21 @@ if (category = "By Last Name"){
     }       
   }
 }
-if (category = "By Patient ID"){
-  for (i = 0; i < tr.length; i++) {
-    td = tr[i].getElementsByTagName("td")[0];
-    if (td) {
-      txtValue = td.textContent || td.innerText
-      if (txtValue.toUpperCase().indexOf(filter) > -1) {
-        tr[i].style.display = "";
-      } else {
-        tr[i].style.display = "none";
-      }
-    }       
+if (category.value === "By Patient ID"){
+    
+    for (i = 0; i < tr.length; i++) {
+      td = tr[i].getElementsByTagName("td")[0];
+      if (td) {
+        txtValue = td.textContent || td.innerText
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+          tr[i].style.display = "";
+        } else {
+          tr[i].style.display = "none";
+        }
+      }       
+    }
   }
-}
+
 
 }
 //--------ASSIGN EVENTS TO BUTTONS--------------//
