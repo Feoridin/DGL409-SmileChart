@@ -159,7 +159,7 @@
         button.setAttribute("type","button"); // Add a class for styling
         button.setAttribute("data-toggle","modal");
         button.setAttribute("data-target","#exampleModalCenter");
-
+        button.setAttribute("style","width: 50%;");
         button.classList.add("btn","w3-round", "w3-teal", "w3-hover-border-orange"); // Add a class for styling
         cell6.appendChild(button);
         button.innerHTML = "Edit"; // Set the button text
@@ -192,6 +192,7 @@
         var patientIdrow = 0;
 
         var updbtn = document.getElementById("updateButton");
+        var clrbtn = document.getElementById("clearButton");
         
     function SelectData(){
     const dbref = ref(db);
@@ -228,10 +229,20 @@
                 alert("unsuccessful, error"+error);
             });
         }
+//-------CLEAR FORM FUNCTION--------------//
+function ClearForm(){
+    const dbref = ref(db);
+    document.getElementById("myForm").reset();
+    console.log(patientIdrow);
+    get(child(dbref,"Patient/"+patientIdrow)).then((snapshot)=>{
+        if(snapshot.exists()){
+            patientid.value = snapshot.val().PatientID;
+        }
+    })
+}
 //--------ASSIGN EVENTS TO BUTTONS--------------//
-        
-        
         updbtn.addEventListener('click',UpdateData);
+        clrbtn.addEventListener('click',ClearForm);
         
        
     </script>
