@@ -1,395 +1,415 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>SmileChart</title>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<!-- Bootstrap CSS -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-<script src="https://www.gstatic.com/firebasejs/3.7.4/firebase.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-storage.js"></script>
-
-<style>
-html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <title>Table Example</title>
 </head>
-<body class="w3-light-grey">
-
-<!-- Top container -->
+<body style="margin-top: 5rem;">
+    <!-- Top container -->
 <div class="w3-bar w3-top w3-teal w3-large" style="z-index:4">
-  <button class="w3-bar-item w3-button w3-hide-large w3-hover-none w3-hover-text-light-grey" onclick="w3_open();"><i class="fa fa-bars"></i>  Menu</button>
-  <span class="w3-bar-item w3-right">SmileChart</span>
-  <div class="container" style="margin-left: 1rem;"> 
-  <img src="Images/Smiley.png" alt="Smiley" height="50vh">Patient Bio
-  </div>
-</div>
-
-<!-- Sidebar/menu -->
-<nav class="w3-sidebar w3-collapse w3-white w3-animate-left" style="z-index:3;width:300px;" id="mySidebar"><br>
-  <div class="w3-container w3-row">
-    <div class="w3-col s4">
-      <img src="/w3images/avatar2.png" class="w3-circle w3-margin-right" style="width:46px">
-    </div>
-    <div class="w3-col s8 w3-bar">
-      <form>
-      <input class="w3-input w3-border" type="text">
-      <button type="submit"><i class="fa fa-search"></i></button>
-      </form>
-      <a href="#" class="w3-bar-item w3-button"><i class="fa fa-envelope"></i></a>
-      <a href="#" class="w3-bar-item w3-button"><i class="fa fa-user"></i></a>
-      <a href="#" class="w3-bar-item w3-button"><i class="fa fa-cog"></i></a>
+    <button class="w3-bar-item w3-button w3-hide-large w3-hover-none w3-hover-text-light-grey" onclick="w3_open();"><i class="fa fa-bars"></i>  Menu</button>
+    <span class="w3-bar-item w3-right">SmileChart</span>
+    <div class="container" style="margin-left: 1rem;"> 
+      <img src="Images/Smiley.png" alt="Smiley" height="50vh">Patient Bio
     </div>
   </div>
-  <hr>
-  <div class="w3-container">
-    <h5>XRAY Images</h5>
-    <form class="container" id="contactForm2">
-      <div class="card">
-          <div class="card-body">
-              <div class="form-group"
-                   style="margin-left: 15px; 
-                          margin-top: 2px;
-                          display:none">
-  <label for="exampleFormControlSelect1 ">Select Type</label>
-  <select class="form-control" id="types">
-    <option>Teeth</option>
-  </select>
-</div>
-    <!-- click here to choose file -->
-    <input class="mb-2" type="file" name="files[] " id="files">
-    <!-- click here to upload file -->
-    <input type="hidden "
-           name="url"
-           id="url">
-           <button class="w3-round w3-teal w3-hover-border-orange mt-2 mb-2" type="button"  id="upload">
-            Upload Image
-         </button>   
-           <button class="w3-round w3-teal w3-hover-border-orange" type="button"  id="upload2">
-               Add Image
-            </button>
-            <button class="w3-round w3-teal w3-hover-border-orange" type="button"  id="clearUp">
-              ClearUp
-           </button>
-           <br><br>
-  </div>
-</div> 
-<button type="submit "
-        class="btn btn-primary "
-        style="margin-left: 15px; margin-top: 10px; display:none">
-                Submit
-  </button>
-</form>   
-  </div>
-  <div class = "w3-bar-block">
-    <div class = "container w3-bar-block" id="image-container"></div>
-  </div> 
-</nav>
+    <div class="input-group my-3 container">
+        <input id="searchBar" type="text" class="form-control" placeholder="Search a Record" aria-label="Text input with dropdown button">
+        <div class="col-md-2">
+        <select class="form-control" id="Category">
+            <option selected>By First Name</option>
+            <option>By Last Name</option>
+            <option>By Patient ID</option>
+          </select>
+        </div>
+        <button id="searchBtn" class="w3-round w3-grey w3-hover-border-orange" type="button">SEARCH</button>
+        </div>
+    <div class = "container mb-3">
+        <button id="addBtn" class="w3-round w3-teal w3-hover-border-orange" type="button" data-toggle="modal" data-target="#exampleModalCenter">+ADD PATIENT</button>
+    </div> 
+    <div class = "container">
+    <table id="myTable" class = "table table-secondary table-striped mt-2">
+        <thead>
+            <tr>
+                <th>PatientId</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Contact</th>
+                <th>Email</th>
+                <th>Gender</th>
+                <th>Control Center</th>
+                <th></th>
+                
 
-<!-- Overlay effect when opening sidebar on small screens -->
-<div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
-
-<!-- !PAGE CONTENT! -->
-<div class="w3-main" style="margin-left:300px;margin-top:47px;"><br><br>
-<form class="container" id="contactForm">
-  <div class="card">
-    <div class="card-body">
-
-      <div class="form-group"
-        style="margin-left: 15px; 
-            margin-top: 10px;
-            display:none;">
-<label for=" exampleFormControlSelect1 ">Select Type</label>
-<select class="form-control" id="types">
-<option>1</option>
-</select>
-</div>
-
-<br>
-<form id="myForm" class="w3-container w3-margin">
-  <div class="w3-row-padding">
-    <div class="w3-quarter">  
-    <label>PatientId</label><input  class="w3-input w3-border" id="idBox" type="text">
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
     </div>
-</div><br>
-<div class="w3-row-padding">
-    <div class="w3-half">
-      <label>First Name</label>
-      <input class="w3-input w3-border" id="firstName"type="text" placeholder="">
-    </div>
-    <div class="w3-half">
-      <label>Last Name</label>
-      <input class="w3-input w3-border" id="lastName" type="text" placeholder="">
-    </div>
-  </div><br>
-<div class="w3-row-padding">
-    <div class="w3-quarter">
-    <label>Contact Number</label><input  id="contactBox" type="text"></input><br><br>
-    </div>
-</div>
-
-<div class="w3-row-padding">
-  <div class="w3-quarter"> 
-    <label>Email</label><br>
-    <input id="emailBox" type="text"></input> <br><br>
-    </div>
-</div>
-<div class="w3-row-padding">
-    <div class="w3-quarter">
-    <label>Gender</label>
-    <select id="GenBox">
-        <option value="Male">Male</option>
-        <option value="Female">Female</option>
-    </select><br><br>
-    </div>
-</div><br>
-  </form>
-  <div class="w3-container w3-row-padding">
-    <button class="w3-round w3-teal w3-hover-border-orange" id = "insertButton">INSERT</button>
-    <button class="w3-round w3-teal w3-hover-border-orange" id = "selectButton">SELECT</button>
-    <button class="w3-round w3-teal w3-hover-border-orange" id = "updateButton">UPDATE</button>
-    <button class="w3-round w3-teal w3-hover-border-orange" id = "deleteButton">DELETE</button>
-    <button class="w3-round w3-teal w3-hover-border-orange" id = "clearButton">CLEAR</button> <br><br>
-</div>
-Document Upload:
-<br>
-<!-- click here to choose file -->
-<input type="file" name="files[] " id="files ">
-<!-- click here to upload file -->
-<input type="hidden "
-  name="url "
-  id="url "> 
-  <button type="button" onclick="uploadimage()">
-    Upload Image
-    </button>
-  <br><br>
-</div>
-</div>
-</div>
-
-<button type="submit"
-  class="btn btn-primary "
-  style="margin-left: 15px; margin-top: 10px; display:none;">
-      Submit
-</button>
-
-</form>
-</body>
-<script src="https://www.gstatic.com/firebasejs/3.7.4/firebase.js ">
-</script>
-<script src=
-"https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js ">
-</script>
-
-<link type="text/css " rel="stylesheet " href=
-"https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.css " />
-
-<script src=
-"https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js ">
-</script>
-
-<script>
-
-
-
-// adding firebase data
-var firebaseConfig = {
-apiKey: "AIzaSyC4vkPVUjbqnGAoDGmXLFYm5WOuR4-PhyQ",
-        authDomain: "dgl-409.firebaseapp.com",
-        databaseURL: "https://dgl-409-default-rtdb.firebaseio.com",
-        projectId: "dgl-409",
-        storageBucket: "dgl-409.appspot.com",
-        messagingSenderId: "587821176763",
-        appId: "1:587821176763:web:e9e9a293cd59725320969e",
-        measurementId: "G-QSD6CP8DG3"
-};
-firebase.initializeApp(firebaseConfig);
-
-var namebox = document.getElementById("NameBox");
-      var rollbox = document.getElementById("RollBox");
-      var secbox = document.getElementById("SecBox");
-      var genbox = document.getElementById("GenBox");
-      var url2 = document.getElementById("url");
-
-var messagesRef = firebase.database().ref('Patient/1/Images/');
-document.getElementById(
-'contactForm').addEventListener('submit', submitForm);
-//uploading file in storage
-function uploadimage(){
-var type = getInputVal('types');
-var storage = firebase.storage();
-var file=document.getElementById("files ").files[0];
-var storageref=storage.ref();
-var thisref=storageref.child(type).child(file.name).put(file);
-thisref.on('state_changed',function(snapshot) {
-
-
-}, function(error) {
-
-}, function() {
-// Uploaded completed successfully, now we can get the download URL
-thisref.snapshot.ref.getDownloadURL().then(function(downloadURL) {
-//getting url of image
-document.getElementById("url ").value=downloadURL;
-alert('uploaded successfully');
-saveMessage(downloadURL);
-});
-});
-
-// Get values
-var url = getInputVal('url');
-// Save message
-// saveMessage(url);
-}
-function getInputVal(id){
-document.getElementById('contactForm').reset();
-
-}
-
-
-// Function to get form values
-function getInputVal(id){
-return document.getElementById(id).value;
-}
-
-// Save message to firebase database
-function saveMessage(url){
-var newMessageRef = messagesRef.push();
-newMessageRef.set({
-imageurl:url,
-});
-}
-</script>
-<script type="module">
-  "use strict";
-  // Import the functions you need from the SDKs you need
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
+    
+    <!-- Vertically centered modal -->
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Patient Information</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">X</span>
+                    </button>
+                </div>
+                <div class="modal-body" style="margin-top: -20px;"><!-- Display patient details here -->
+                    <div class="w3-main"><br><br>
+                        <form id="myForm" class = "w3-container">
+                            <div class="w3-row-padding">
+                                <div class="w3-half">  
+                                    <label>PatientId</label><input  class="w3-input w3-border" id="idBox" type="text" readonly>
+                                </div>
+                            </div><br>
+                            <div class="w3-row-padding">
+                                <div class="w3-col">
+                                    <label>First Name</label>
+                                    <input class="w3-input w3-border" id="firstName"type="text" placeholder="" required>
+                                </div>
+                            </div>
+                            <div class="w3-row-padding">
+                                <div class="w3-col">
+                                    <label>Last Name</label>
+                                    <input class="w3-input w3-border" id="lastName" type="text" placeholder="" required>
+                                </div>
+                            </div><br>
+                            <div class="w3-row-padding">
+                                <div class="w3-half">
+                                    <label>Contact Number</label><input class="w3-input w3-border" id="contactBox" type="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="123-456-7890" required></input><br>
+                                </div>
+                            </div>
+                            <div class="w3-row-padding">
+                                <div class="w3-half"> 
+                                    <label>Email</label><input class="w3-input w3-border" id="emailBox" type="email" required></input><br>
+                                </div>
+                            </div>
+                            <div class="w3-row-padding">
+                                <div class="w3-half">
+                                    <label>Gender</label>
+                                    <select id="GenBox" class="w3-input w3-border">
+                                        <option value="Male">Male</option>
+                                        <option value="Female">Female</option>
+                                    </select><br><br>
+                                </div>
+                            </div><br>
+                        </form>
+                    </div>
+                </div><!-- end Display patient details-->
+                <div class="modal-footer">
+                    <button class="w3-round w3-teal w3-hover-border-orange" id = "updateButton">UPDATE</button>
+                    <button class="w3-round w3-teal w3-hover-border-orange" id = "clearButton">CLEAR</button>
+                    <button class="w3-round w3-teal w3-hover-border-orange" data-dismiss="modal">CLOSE</button>
+                    <button class="w3-round w3-teal w3-hover-border-orange" id = "updateButton2" data-dismiss="modal" hidden>SAVE CHANGES</button>
+                </div>
+            </div>
+        </div>
+      </div>
   
-  // TODO: Add SDKs for Firebase products that you want to use
-  // https://firebase.google.com/docs/web/setup#available-libraries
+  
+    </div>
 
-  // Your web app's Firebase configuration
-  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-  const firebaseConfig = {
-  apiKey: "AIzaSyC4vkPVUjbqnGAoDGmXLFYm5WOuR4-PhyQ",
-  authDomain: "dgl-409.firebaseapp.com",
-  databaseURL: "https://dgl-409-default-rtdb.firebaseio.com",
-  projectId: "dgl-409",
-  storageBucket: "dgl-409.appspot.com",
-  messagingSenderId: "587821176763",
-  appId: "1:587821176763:web:e9e9a293cd59725320969e",
-  measurementId: "G-QSD6CP8DG3"
-};
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
 
-  // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
+    <script type = "module">
+    // Import the functions you need from the SDKs you need
+ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
+    
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+  
+    // Your web app's Firebase configuration
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    const firebaseConfig = {
+    apiKey: "AIzaSyC4vkPVUjbqnGAoDGmXLFYm5WOuR4-PhyQ",
+    authDomain: "dgl-409.firebaseapp.com",
+    databaseURL: "https://dgl-409-default-rtdb.firebaseio.com",
+    projectId: "dgl-409",
+    storageBucket: "dgl-409.appspot.com",
+    messagingSenderId: "587821176763",
+    appId: "1:587821176763:web:e9e9a293cd59725320969e",
+    measurementId: "G-QSD6CP8DG3"
+  };
+  
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
 
-  import {getDatabase, ref, get, set, child, update, remove}
-  from "https://www.gstatic.com/firebasejs/10.5.0/firebase-database.js";
+    import {getDatabase, ref, get, set, child, update, remove, query, limitToLast, onValue, onChildAdded, onChildChanged}
+    from "https://www.gstatic.com/firebasejs/10.5.0/firebase-database.js";
+    import {getStorage, ref as sRef, uploadBytesResumable, getDownloadURL}
+    from "https://www.gstatic.com/firebasejs/10.5.0/firebase-storage.js";
+    const db = getDatabase(app);
+    //const recentPostRef = query(ref(db,"Patient"), limitToLast(100));
+    const recentPostRef =ref(db,"Patient");
+    onValue(recentPostRef, (snapshot) => {
+        var patients = []
+        snapshot.forEach((childSnapshot) => {
+            patients.push(childSnapshot.val())
+            /* Clear the existing table content - Before inserting new rows into the table, 
+            we clear the existing content within the table body using a while loop to remove all child elements.*/
+            while (tableBody.firstChild) {
+            tableBody.removeChild(tableBody.firstChild);
+            }
 
-  import {getStorage, ref as sRef, uploadBytesResumable, getDownloadURL}
-  from "https://www.gstatic.com/firebasejs/10.5.0/firebase-storage.js";
+            for (var i = 0; i < patients.length; i++) {
+            var row = tableBody.insertRow(i);
+            var cell1 = row.insertCell(0);
+            var cell2 = row.insertCell(1);
+            var cell3 = row.insertCell(2);
+            var cell4 = row.insertCell(3);
+            var cell5 = row.insertCell(4);
+            var cell6 = row.insertCell(5);
+            var cell7 = row.insertCell(6);  // Add a cell for the button
+            var cell8 = row.insertCell(7);  // Add a cell for the button
 
-  const db = getDatabase(app);
-      
+
+            cell1.innerHTML = patients[i].PatientID;
+            cell2.innerHTML = patients[i].PatientFirstName;
+            cell3.innerHTML = patients[i].PatientLastName;
+            cell4.innerHTML = patients[i].Contact;
+            cell5.innerHTML = patients[i].Email;
+            cell6.innerHTML = patients[i].Gender;
+
+            // Create a Bootstrap button element and add it to the last cell
+            // Create a button element and add it to the last cell
+        var button = document.createElement("button");
+        var buttonImage = document.createElement("button");
+        buttonImage.setAttribute("type","button");
+        button.setAttribute("type","button"); // Add a class for styling
+        button.setAttribute("data-toggle","modal");
+        button.setAttribute("data-target","#exampleModalCenter");
+        button.setAttribute("style","width: 50%;");
+        button.classList.add("btn","w3-round", "w3-teal", "w3-hover-border-orange"); // Add a class for styling
+        buttonImage.classList.add("btn","w3-round", "w3-teal", "w3-hover-border-orange"); // Add a class for styling
+        cell6.appendChild(button);
+        cell7.appendChild(buttonImage);
+        button.innerHTML = "Edit"; // Set the button text
+        buttonImage.innerHTML = "Image";
+        // Add a click event listener to the button and pass the row index
+        button.addEventListener("click", function (index) {
+        return function () {
+            editPatient(index);
+        };
+    }(i));
+    buttonImage.addEventListener("click", function (index) {
+        return function () {
+            window.location.href="canvas.html"
+        };
+    }(i));
+        cell7.appendChild(button);
+        cell8.appendChild(buttonImage); // button in the last cell
+        }
+        })
+     
+    })
+        // Get a reference to the table body
+        var tableBody = document.getElementById("myTable").getElementsByTagName('tbody')[0];
+        
+    function editPatient(rowIndex){
+         
+         patientIdrow = rowIndex+1;
+         SelectData();
+        }
 //--------References--------------//
-      var patientid = document.getElementById("idBox");
-      var fname = document.getElementById("firstName");
-      var lname = document.getElementById("lastName");
-      var contact = document.getElementById("contactBox");
-      var email = document.getElementById("emailBox");
-      var genbox = document.getElementById("GenBox");
+        var patientid = document.getElementById("idBox");
+        var fname = document.getElementById("firstName");
+        var lname = document.getElementById("lastName");
+        var contact = document.getElementById("contactBox");
+        var email = document.getElementById("emailBox");
+        var genbox = document.getElementById("GenBox");
+        var patientIdrow = 0;
 
-      var insbtn = document.getElementById("insertButton");
-      var selbtn = document.getElementById("selectButton");
-      var updbtn = document.getElementById("updateButton");
-      var delbtn = document.getElementById("deleteButton");
-      var clrbtn = document.getElementById("clearButton");
-//--------INSERT DATA FUNCTION--------------//
-      function InsertData(){          
-          set(ref(db, "Patient/"+patientid.value),{
-              PatientFirstName: fname.value,
-              PatientLastName: lname.value,
-              Contact: contact.value,
-              Email: email.value,
-              Gender: genbox.value
-          })
-          .then(()=>{
-              alert("data stored successfully");
-              ClearForm();
-          })
-          .catch((error)=>{
-              alert("unsuccessful, error"+error);
-          });
-      }
-   
-//--------SELECT DATA FUNCTION--------------//
-function SelectData(){
-  const dbref = ref(db);
-
-  get(child(dbref,"Patient/"+patientid.value)).then((snapshot)=>{
-      if(snapshot.exists()){
-          fname.value = snapshot.val().PatientFirstName;
-          lname.value = snapshot.val().PatientLastName;
-          contact.value = snapshot.val().Contact;
-          email.value = snapshot.val().Email;
-          genbox.value = snapshot.val().Gender;
-      }
-      else{
-          alert("No Data Found");
-      }
-  })
-  .catch((error)=>{
-  alert("unsuccesful, error"+error);
-})
-}
-//--------UPDATE DATA FUNCTION--------------//
-function UpdateData(){
-  update(ref(db, "Patient/"+patientid.value),{
-              PatientFirstName: fname.value,
-              PatientLastName: lname.value,
-              Contact: contact.value,
-              Gender: genbox.value
-          })
-          .then(()=>{
-              alert("data stored successfully");
-              ClearForm();
-          })
-          .catch((error)=>{
-              alert("unsuccessful, error"+error);
-          });
-      }
-//--------DELETE DATA FUNCTION--------------//
-function DeleteData(){
-  remove(ref(db, "Patient/"+patientid.value))
-          .then(()=>{
-              alert("data removed successfully");
-              ClearForm();
-          })
-          .catch((error)=>{
-              alert("unsuccessful, error"+error);
-          });
-      }
+        var updbtn = document.getElementById("updateButton");
+        var clrbtn = document.getElementById("clearButton");
+        var addbtn = document.getElementById("addBtn");
+        var savebtn = document.getElementById("updateButton2");
+        
+    function SelectData(){
+    const dbref = ref(db);
+    var button2 = document.getElementById("updateButton")
+    var button3 = document.getElementById("updateButton2")
+    button3.setAttribute("hidden","hidden");
+    button2.removeAttribute("hidden");
+    get(child(dbref,"Patient/"+patientIdrow)).then((snapshot)=>{
+        if(snapshot.exists()){
+            patientid.value = snapshot.val().PatientID;
+            fname.value = snapshot.val().PatientFirstName;
+            lname.value = snapshot.val().PatientLastName;
+            contact.value = snapshot.val().Contact;
+            email.value = snapshot.val().Email;
+            genbox.value = snapshot.val().Gender;
+        }
+        else{
+            alert("No Data Found");
+        }
+    })
+    .catch((error)=>{
+    alert("unsuccesful, error"+error);
+    })
+    }
+    //--------UPDATE DATA FUNCTION--------------//
+    function UpdateData(){
+    const dbref = ref(db);
+    update(ref(db, "Patient/"+patientIdrow),{
+                PatientFirstName: fname.value,
+                PatientLastName: lname.value,
+                Contact: contact.value,
+                Email: email.value,
+                Gender: genbox.value,
+            })
+            .then(()=>{
+                alert("data stored successfully");
+            })
+            .catch((error)=>{
+                alert("unsuccessful, error"+error);
+            });
+        }
 //-------CLEAR FORM FUNCTION--------------//
 function ClearForm(){
-  document.getElementById("myForm").reset();
+    const dbref = ref(db);
+    document.getElementById("myForm").reset();
+    console.log(patientIdrow);
+    get(child(dbref,"Patient/"+patientIdrow)).then((snapshot)=>{
+        if(snapshot.exists()){
+            patientid.value = snapshot.val().PatientID;
+        }
+    })
 }
+//-------SEARCH FUNCTION--------------//
+var searchbar = document.getElementById("searchBar");
+var searchbtn = document.getElementById("searchBtn");
 
+function SearchTable(){
+    
+    var input, filter, table, tr, td, i, txtValue, td2, category;
+    input = document.getElementById("searchBar");
+    category = document.getElementById("Category")
+    filter = input.value.toUpperCase();
+    table = document.getElementById("myTable");
+    tr = table.getElementsByTagName("tr");
 
+  
+  if (category.value === "By First Name"){
+    
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[1];
+    if (td) {
+      txtValue = td.textContent || td.innerText
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      }  else {
+        tr[i].style.display = "none";
+      }
+    }       
+  }
+}
+if (category.value === "By Last Name"){
+    
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[2];
+    if (td) {
+      txtValue = td.textContent || td.innerText
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }       
+  }
+}
+if (category.value === "By Patient ID"){
+    
+    for (i = 0; i < tr.length; i++) {
+      td = tr[i].getElementsByTagName("td")[0];
+      if (td) {
+        txtValue = td.textContent || td.innerText
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+          tr[i].style.display = "";
+        } else {
+          tr[i].style.display = "none";
+        }
+      }       
+    }
+  }
+}
+//--------ADD PATIENT FUNCTION------------------//
+function AddPatient(){
+    const dbref = ref(db);
+    var patients = [];
+    var patientIdNumber;
+    var pnumber = document.getElementById("idBox")
+    var patientid = pnumber;
+    var button2 = document.getElementById("updateButton")
+    var button3 = document.getElementById("updateButton2")
+    button2.setAttribute("hidden","hidden");
+    button3.removeAttribute("hidden");
+    
+    onValue(recentPostRef, (snapshot) => {
+        snapshot.forEach((childSnapshot) => {
+            patients.push(childSnapshot.val())
+            patientIdNumber = patients.length+1;
+            patientid = patientIdNumber.value;
+            pnumber.setAttribute("value",patientIdNumber);
+            pnumber.setAttribute("placeholder",patientIdNumber+1);
+            
+            
+        })
+        console.log(patientIdNumber);
+          
+    })
+    
+    
+    
+        }
+//--------SAVE PATIENT FUNCTION------------------//
+function SavePatient(){
+    const dbref = ref(db);
+    var pnumber = document.getElementById("idBox")
+    var patientIdNumber;
+    var patientid = pnumber;
+    console.log(patientid.value);
+    set(ref(db, "Patient/"+patientid.value),{
+                PatientID: patientid.value,
+                PatientFirstName: fname.value,
+                PatientLastName: lname.value,
+                Contact: contact.value,
+                Email: email.value,
+                Gender: genbox.value
+            })
+            .then(()=>{
+                alert("data stored successfully");
+                
+            })
+            .catch((error)=>{
+                alert("unsuccessful, error"+error);
+            });
+            
+    
+   
+        }
 
 
 //--------ASSIGN EVENTS TO BUTTONS--------------//
-      insbtn.addEventListener('click',InsertData);
-      selbtn.addEventListener('click',SelectData);
-      updbtn.addEventListener('click',UpdateData);
-      delbtn.addEventListener('click',DeleteData);
-      clrbtn.addEventListener('click',ClearForm);
-
-  
-</script>
+        updbtn.addEventListener('click',UpdateData);
+        clrbtn.addEventListener('click',ClearForm);
+        searchbtn.addEventListener('click',SearchTable);
+        addbtn.addEventListener('click',AddPatient);
+        savebtn.addEventListener('click',SavePatient);
+        
+        
+       
+    </script>
+</body>
 </html>
-
-
