@@ -8,8 +8,22 @@
     <title>Table Example</title>
 </head>
 <body>
-    <div class = "container mt-3"></div>
-    <table id="myTable" class = "table table-secondary table-striped">
+    <div class="input-group my-3 container">
+        <input id="searchBar" type="text" class="form-control" placeholder="Search a Record" aria-label="Text input with dropdown button">
+        <div class="col-md-2">
+        <select class="form-control" id="Category">
+            <option selected>By First Name</option>
+            <option value="1">By Last Name</option>
+            <option value="2">By Patiet ID</option>
+          </select>
+        </div>
+        <button id="searchBtn" class="w3-round w3-grey w3-hover-border-orange" type="button">SEARCH</button>
+        </div>
+    <div class = "container mb-3">
+        <button id="addBtn" class="w3-round w3-teal w3-hover-border-orange" type="button">+ADD PATIENT</button>
+    </div> 
+    <div class = "container">
+    <table id="myTable" class = "table table-secondary table-striped mt-2">
         <thead>
             <tr>
                 <th>PatientId</th>
@@ -26,6 +40,7 @@
         <tbody>
         </tbody>
     </table>
+    </div>
     
     <!-- Vertically centered modal -->
     <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -95,6 +110,9 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
 
     <script type = "module">
     // Import the functions you need from the SDKs you need
@@ -176,7 +194,7 @@
     })
         // Get a reference to the table body
         var tableBody = document.getElementById("myTable").getElementsByTagName('tbody')[0];
-    
+        
     function editPatient(rowIndex){
          
          patientIdrow = rowIndex+1;
@@ -240,9 +258,65 @@ function ClearForm(){
         }
     })
 }
+//-------SEARCH FUNCTION--------------//
+var searchbar = document.getElementById("searchBar");
+var searchbtn = document.getElementById("searchBtn");
+
+function SearchTable(){
+    
+    var input, filter, table, tr, td, i, txtValue, td2, category;
+  input = document.getElementById("searchBar");
+  category = document.getElementById("Category")
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+  console.log(category.value);
+  if (category = "By First Name"){
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[1];
+    if (td) {
+      txtValue = td.textContent || td.innerText
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }       
+  }
+}
+if (category = "By Last Name"){
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[2];
+    if (td) {
+      txtValue = td.textContent || td.innerText
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }       
+  }
+}
+if (category = "By Patient ID"){
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[0];
+    if (td) {
+      txtValue = td.textContent || td.innerText
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }       
+  }
+}
+
+}
 //--------ASSIGN EVENTS TO BUTTONS--------------//
         updbtn.addEventListener('click',UpdateData);
         clrbtn.addEventListener('click',ClearForm);
+        searchbtn.addEventListener('click',SearchTable);
+        
         
        
     </script>
