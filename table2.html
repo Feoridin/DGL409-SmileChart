@@ -33,6 +33,7 @@
                 <th>Email</th>
                 <th>Gender</th>
                 <th>Control Center</th>
+                <th></th>
                 
 
             </tr>
@@ -163,6 +164,8 @@
             var cell5 = row.insertCell(4);
             var cell6 = row.insertCell(5);
             var cell7 = row.insertCell(6);  // Add a cell for the button
+            var cell8 = row.insertCell(7);  // Add a cell for the button
+
 
             cell1.innerHTML = patients[i].PatientID;
             cell2.innerHTML = patients[i].PatientFirstName;
@@ -174,20 +177,31 @@
             // Create a Bootstrap button element and add it to the last cell
             // Create a button element and add it to the last cell
         var button = document.createElement("button");
+        var buttonImage = document.createElement("button");
+        buttonImage.setAttribute("type","button");
         button.setAttribute("type","button"); // Add a class for styling
         button.setAttribute("data-toggle","modal");
         button.setAttribute("data-target","#exampleModalCenter");
         button.setAttribute("style","width: 50%;");
         button.classList.add("btn","w3-round", "w3-teal", "w3-hover-border-orange"); // Add a class for styling
+        buttonImage.classList.add("btn","w3-round", "w3-teal", "w3-hover-border-orange"); // Add a class for styling
         cell6.appendChild(button);
+        cell7.appendChild(buttonImage);
         button.innerHTML = "Edit"; // Set the button text
+        buttonImage.innerHTML = "Image";
         // Add a click event listener to the button and pass the row index
         button.addEventListener("click", function (index) {
         return function () {
             editPatient(index);
         };
     }(i));
-        cell7.appendChild(button); // button in the last cell
+    buttonImage.addEventListener("click", function (index) {
+        return function () {
+            window.location.href="index.html"
+        };
+    }(i));
+        cell7.appendChild(button);
+        cell8.appendChild(buttonImage); // button in the last cell
         }
         })
      
