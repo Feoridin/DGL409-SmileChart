@@ -20,7 +20,7 @@
         <button id="searchBtn" class="w3-round w3-grey w3-hover-border-orange" type="button">SEARCH</button>
         </div>
     <div class = "container mb-3">
-        <button id="addBtn" class="w3-round w3-teal w3-hover-border-orange" type="button">+ADD PATIENT</button>
+        <button id="addBtn" class="w3-round w3-teal w3-hover-border-orange" type="button" data-toggle="modal" data-target="#exampleModalCenter">+ADD PATIENT</button>
     </div> 
     <div class = "container">
     <table id="myTable" class = "table table-secondary table-striped mt-2">
@@ -33,7 +33,7 @@
                 <th>Email</th>
                 <th>Gender</th>
                 <th>Control Center</th>
-                <!-- Button trigger modal -->
+                
 
             </tr>
         </thead>
@@ -98,7 +98,7 @@
                     <button class="w3-round w3-teal w3-hover-border-orange" id = "updateButton">UPDATE</button>
                     <button class="w3-round w3-teal w3-hover-border-orange" id = "clearButton">CLEAR</button>
                     <button class="w3-round w3-teal w3-hover-border-orange" data-dismiss="modal">CLOSE</button>
-                    <button class="w3-round w3-teal w3-hover-border-orange" id = "updateButton2" hidden>SAVE CHANGES</button>
+                    <button class="w3-round w3-teal w3-hover-border-orange" id = "updateButton2" data-dismiss="modal" hidden>SAVE CHANGES</button>
                 </div>
             </div>
         </div>
@@ -211,9 +211,15 @@
 
         var updbtn = document.getElementById("updateButton");
         var clrbtn = document.getElementById("clearButton");
+        var addbtn = document.getElementById("addBtn");
+        var savebtn = document.getElementById("updateButton2");
         
     function SelectData(){
     const dbref = ref(db);
+    var button2 = document.getElementById("updateButton")
+    var button3 = document.getElementById("updateButton2")
+    button3.setAttribute("hidden","hidden");
+    button2.removeAttribute("hidden");
     get(child(dbref,"Patient/"+patientIdrow)).then((snapshot)=>{
         if(snapshot.exists()){
             patientid.value = snapshot.val().PatientID;
@@ -238,7 +244,8 @@
                 PatientFirstName: fname.value,
                 PatientLastName: lname.value,
                 Contact: contact.value,
-                Gender: genbox.value
+                Email: email.value,
+                Gender: genbox.value,
             })
             .then(()=>{
                 alert("data stored successfully");
@@ -265,12 +272,12 @@ var searchbtn = document.getElementById("searchBtn");
 function SearchTable(){
     
     var input, filter, table, tr, td, i, txtValue, td2, category;
-  input = document.getElementById("searchBar");
-  category = document.getElementById("Category")
-  filter = input.value.toUpperCase();
-  table = document.getElementById("myTable");
-  tr = table.getElementsByTagName("tr");
-  console.log(category.value);
+    input = document.getElementById("searchBar");
+    category = document.getElementById("Category")
+    filter = input.value.toUpperCase();
+    table = document.getElementById("myTable");
+    tr = table.getElementsByTagName("tr");
+
   
   if (category.value === "By First Name"){
     
@@ -314,13 +321,70 @@ if (category.value === "By Patient ID"){
       }       
     }
   }
-
-
 }
+//--------ADD PATIENT FUNCTION------------------//
+function AddPatient(){
+    const dbref = ref(db);
+    var patients = [];
+    var patientIdNumber;
+    var pnumber = document.getElementById("idBox")
+    var patientid = pnumber;
+    var button2 = document.getElementById("updateButton")
+    var button3 = document.getElementById("updateButton2")
+    button2.setAttribute("hidden","hidden");
+    button3.removeAttribute("hidden");
+    
+    onValue(recentPostRef, (snapshot) => {
+        snapshot.forEach((childSnapshot) => {
+            patients.push(childSnapshot.val())
+            patientIdNumber = patients.length+1;
+            patientid = patientIdNumber.value;
+            pnumber.setAttribute("value",patientIdNumber);
+            pnumber.setAttribute("placeholder",patientIdNumber+1);
+            
+            
+        })
+        console.log(patientIdNumber);
+          
+    })
+    
+    
+    
+        }
+//--------SAVE PATIENT FUNCTION------------------//
+function SavePatient(){
+    const dbref = ref(db);
+    var pnumber = document.getElementById("idBox")
+    var patientIdNumber;
+    var patientid = pnumber;
+    console.log(patientid.value);
+    set(ref(db, "Patient/"+patientid.value),{
+                PatientID: patientid.value,
+                PatientFirstName: fname.value,
+                PatientLastName: lname.value,
+                Contact: contact.value,
+                Email: email.value,
+                Gender: genbox.value
+            })
+            .then(()=>{
+                alert("data stored successfully");
+                
+            })
+            .catch((error)=>{
+                alert("unsuccessful, error"+error);
+            });
+            
+    
+   
+        }
+
+
 //--------ASSIGN EVENTS TO BUTTONS--------------//
         updbtn.addEventListener('click',UpdateData);
         clrbtn.addEventListener('click',ClearForm);
         searchbtn.addEventListener('click',SearchTable);
+        addbtn.addEventListener('click',AddPatient);
+        savebtn.addEventListener('click',SavePatient);
         
         
        
