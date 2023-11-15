@@ -2,6 +2,8 @@
 "use strict";
     // Import the functions you need from the SDKs you need
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
+    var index;
+    export {index};
     
     // TODO: Add SDKs for Firebase products that you want to use
     // https://firebase.google.com/docs/web/setup#available-libraries
@@ -59,18 +61,16 @@
             cell6.innerHTML = patients[i].Gender;
 
             // Create a Bootstrap button element and add it to the last cell
-            // Create a button element and add it to the last cell
         var button = document.createElement("button");
         var buttonImage = document.createElement("button");
         buttonImage.setAttribute("type","button");
         button.setAttribute("type","button"); // Add a class for styling
         button.setAttribute("data-toggle","modal");
         button.setAttribute("data-target","#exampleModalCenter");
-        button.setAttribute("style","width: 50%;");
         button.classList.add("btn","w3-round", "w3-teal", "w3-hover-border-orange"); // Add a class for styling
         buttonImage.classList.add("btn","w3-round", "w3-teal", "w3-hover-border-orange"); // Add a class for styling
-        cell6.appendChild(button);
-        cell7.appendChild(buttonImage);
+        //cell6.appendChild(button);
+        //cell7.appendChild(buttonImage);
         button.innerHTML = "Edit"; // Set the button text
         buttonImage.innerHTML = "Image";
         // Add a click event listener to the button and pass the row index
@@ -79,11 +79,12 @@
             editPatient(index);
         };
     }(i));
+    
     buttonImage.addEventListener("click", function (index) {
         return function () {
             window.location.href="canvas.html"
-        };
-    }(i));
+        };   
+    });
         cell7.appendChild(button);
         cell8.appendChild(buttonImage); // button in the last cell
         }
@@ -226,7 +227,6 @@ function AddPatient(){
     var patients = [];
     var patientIdNumber;
     var pnumber = document.getElementById("idBox")
-    var patientid = pnumber;
     var button2 = document.getElementById("updateButton")
     var button3 = document.getElementById("updateButton2")
     button2.setAttribute("hidden","hidden");
@@ -239,8 +239,6 @@ function AddPatient(){
             patientid = patientIdNumber.value;
             pnumber.setAttribute("value",patientIdNumber);
             pnumber.setAttribute("placeholder",patientIdNumber+1);
-            
-            
         })
         console.log(patientIdNumber);
           
