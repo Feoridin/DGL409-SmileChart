@@ -21,6 +21,9 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
 
 <!-- Top container -->
 <div class="w3-bar w3-top w3-teal w3-large" style="z-index:4">
+  <div class="w3-col s4 p-2">
+    <img src="Images/Smiley.png" class="w3-margin-right" height="50vh">
+  </div>
   <button class="w3-bar-item w3-button w3-hide-large w3-hover-none w3-hover-text-light-grey" onclick="w3_open();"><i class="fa fa-bars"></i>  Menu</button>
   <span class="w3-bar-item w3-right">SmileChart</span>
   <div class="container" style="margin-left: 1rem;"> 
@@ -31,14 +34,14 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
 <!-- Sidebar/menu -->
 <nav class="w3-sidebar w3-collapse w3-white w3-animate-left" style="z-index:3;width:300px;" id="mySidebar"><br>
   <div class="w3-container w3-row">
-    <div class="w3-col s4">
-      <img src="Images/Smiley.png" class="w3-circle w3-margin-right" height="50vh">
-    </div>
-    <div class="w3-col s8 w3-bar">
-      <form>
-      <input class="w3-input w3-border" type="text" placeholder="Patient Name" readonly name="CheckOut" required>
+    <div class="w3-col s20 w3-bar">
+      <form class="container p-0">
+      <h5>Patient ID</h5>
+      <input class="w3-input w3-border text-center" type="text" placeholder="ID Name" required id="patientidName">
+      <h5 class = "mt-2">Patient Name</h5>
+      <input class="w3-input w3-border" type="text" placeholder="Patient Name" required id="patientName">
       </form>
-      <a href="addpatient.html"><button class="w3-round w3-teal w3-hover-border-orange">Search</button></a>
+      <a href="addpatient.html"><button class="mt-2 w3-round w3-teal w3-hover-border-orange">Search</button></a>
      
     </div>
   </div>
@@ -58,12 +61,12 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
   </select>
 </div>
     <!-- click here to choose file -->
-    <input type="file" name="files[] " id="files">
+    <input type="file" name="files[] " id="files" class = "py-2">
     <!-- click here to upload file -->
     <input type="hidden "
            name="url"
            id="url">
-           <button class="w3-round w3-teal w3-hover-border-orange" type="button"  id="upload">
+           <button class="w3-round w3-teal w3-hover-border-orange my-2" type="button"  id="upload">
             Upload Image
          </button>    
            <button class="w3-round w3-teal w3-hover-border-orange" type="button"  id="upload2">
@@ -123,7 +126,9 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
   <footer class="w3-container w3-padding-16 w3-light-grey">
     <h4>FOOTER</h4>
   </footer>
-  <script src="smilechart.js"></script>
+  <!--<script src="smilechart.js"></script>-->
+  <script type = "module" src="test.js"></script>
+  
   
   <!-- End page content -->
 
