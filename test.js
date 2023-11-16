@@ -1,8 +1,4 @@
-
-
-
-
- // Import the functions you need from the SDKs you need
+// Import the functions you need from the SDKs you need
  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
     
  // TODO: Add SDKs for Firebase products that you want to use
@@ -23,7 +19,7 @@
 
  // Initialize Firebase
  const app = initializeApp(firebaseConfig);
-
+ firebase.initializeApp(firebaseConfig);
  import {getDatabase, ref, get, set, child, update, remove, query, limitToLast, onValue, onChildAdded, onChildChanged}
  from "https://www.gstatic.com/firebasejs/10.5.0/firebase-database.js";
  import {getStorage, ref as sRef, uploadBytesResumable, getDownloadURL}
@@ -34,20 +30,69 @@
  var patientname = document.getElementById("patientName");
  
  get(child(dbref,"Selected")).then((snapshot)=>{
-    var patientname2;
     if(snapshot.exists()){
         patientid.value = snapshot.val().PatientID;
+        console.log(patientid.value);
         get(child(dbref,"Patient/"+patientid.value)).then((snapshot)=>{
             if(snapshot.exists()){
                 patientname.value = snapshot.val().PatientFirstName +" "+  snapshot.val().PatientLastName; 
             }
-            else{
-                alert("No Data Found");
-            }
-        })
-        .catch((error)=>{
-        alert("unsuccesful, error"+error);
-        });   
+            
+        });
+//-------UPLOADING FILE IN STORAGE------------//
+        var uploadbtn = document.getElementById("upload");
+        uploadbtn.addEventListener("click",uploadimage);
+
+        
+        //document.getElementById(
+            //'contactForm').addEventListener('submit', submitForm);
+        
+        function uploadimage(){
+        var type = getInputVal('types');
+        var storage = firebase.storage();
+        var file=document.getElementById("files").files[0];
+        var storageref=storage.ref();
+        var thisref=storageref.child(type).child(file.name).put(file);
+        thisref.on('state_changed',function(snapshot) {
+        
+        
+        }, function(error) {
+        
+        }, function() {
+        // Uploaded completed successfully, now we can get the download URL
+        thisref.snapshot.ref.getDownloadURL().then(function(downloadURL) {
+            //getting url of image
+            document.getElementById("url").value=downloadURL;
+            alert('uploaded successfully');
+            saveMessage(downloadURL);
+        });
+        });
+        
+        // Get values
+        //var url = getInputVal('url');
+        // Save message
+        // saveMessage(url);
+        }
+        //function getInputVal(id){
+         //   document.getElementById('contactForm').reset();
+        
+        //}
+        
+        
+        // Function to get form values
+        function getInputVal(id){
+        return document.getElementById(id).value;
+        }
+        
+        // Save message to firebase database
+        
+        function saveMessage(url){
+            set(ref(db, "Patient/"+patientid.value+"/Images"),{
+                imageurl:url
+            })
+        }
+        
+
     }
     else{
         alert("No Data Found");
@@ -56,6 +101,8 @@
 .catch((error)=>{
 alert("unsuccesful, error"+error);
 });
+
+
 
 
 
