@@ -1,3 +1,4 @@
+
 // Import the functions you need from the SDKs you need
  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
     
@@ -51,9 +52,8 @@ const storage2 = firebase.storage();
                 // Get the download URL for each image
                 imageRef.getDownloadURL().then(function (url) {
                     const imageElement = document.createElement("img");
-                    imageElement.className = ('d-flex p-2 w-100');
-                    imageElement.setAttribute('id','upImage');
-                    imageElement.setAttribute('onclick',"document.getElementById('modal01').style.display='block'");
+                    imageElement.className = ('d-flex p-2 w-100 w3-hover-opacity');
+                    imageElement.setAttribute('onclick',"onClick(this)");
                     imageElement.src = url;
                     document.getElementById("image-container").appendChild(imageElement);
                     console.log(imageElement);
@@ -66,6 +66,8 @@ const storage2 = firebase.storage();
             console.error("Error listing images:", error);
         });
     }
+
+
 //-------UPLOADING FILE IN STORAGE------------//
         //--Disply images references
         var uploadbtn = document.getElementById("upload");
@@ -147,7 +149,22 @@ const storage2 = firebase.storage();
 .catch((error)=>{
 alert("unsuccesful, error"+error);
 });
-
+//Set Background Image Canva
+const backgroundImage = new Image();
+backgroundImage.src = "Images/ToothChart.jpg";
+backgroundImage.onload = function () {
+ctx.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height);
+};
+toolbar.addEventListener('click', e => {
+    if (e.target.id === 'clear') {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        const backgroundImage = new Image();
+backgroundImage.src = "Images/ToothChart.jpg";
+        backgroundImage.onload = function () {
+          ctx.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height);
+        };
+    }
+});
 
 
 
