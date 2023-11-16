@@ -36,23 +36,9 @@ let lineWidth = 5;
 let startX;
 let startY;
 
-//Set Background Image Canva
-const backgroundImage = new Image();
-backgroundImage.src = "Images/ToothChart.jpg";
-backgroundImage.onload = function () {
-  ctx.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height);
-};
 
-toolbar.addEventListener('click', e => {
-    if (e.target.id === 'clear') {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        const backgroundImage = new Image();
-backgroundImage.src = "Images/ToothChart.jpg";
-        backgroundImage.onload = function () {
-          ctx.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height);
-        };
-    }
-});
+
+
 
 toolbar.addEventListener('change', e => {
 

@@ -33,7 +33,6 @@
  get(child(dbref,"Selected")).then((snapshot)=>{
     if(snapshot.exists()){
         patientid.value = snapshot.val().PatientID;
-        console.log(patientid.value);
         get(child(dbref,"Patient/"+patientid.value)).then((snapshot)=>{
             if(snapshot.exists()){
                 patientname.value = snapshot.val().PatientFirstName +" "+  snapshot.val().PatientLastName; 
@@ -149,7 +148,9 @@ const storage2 = firebase.storage();
 .catch((error)=>{
 alert("unsuccesful, error"+error);
 });
+
 //Set Background Image Canva
+
 const backgroundImage = new Image();
 backgroundImage.src = "Images/ToothChart.jpg";
 backgroundImage.onload = function () {
@@ -164,6 +165,16 @@ backgroundImage.src = "Images/ToothChart.jpg";
           ctx.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height);
         };
     }
+});
+
+const saveImg = document.querySelector(".save-img");
+
+saveImg.addEventListener("click", () => {
+  const link = document.createElement("a"); // creating <a> element
+  link.download = `${Date.now()}.jpg`; // passing current date as link download value
+  link.href = canvas.toDataURL(); // passing canvasData as link href value
+  link.click(); // clicking link to download image
+  
 });
 
 

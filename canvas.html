@@ -41,7 +41,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
       <h5 class = "mt-2">Patient Name</h5>
       <input class="w3-input w3-border" type="text" placeholder="Patient Name" required id="patientName">
       </form>
-      <a href="addpatient.html"><button class="mt-2 w3-round w3-teal w3-hover-border-orange">Search</button></a>
+      <a href="addpatient.html"><button class="mt-2 w3-round w3-teal w3-hover-border-orange">Back to Patient List</button></a>
      
     </div>
   </div>
@@ -70,7 +70,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
             Upload Image
            </button>    
            <button class="w3-round w3-teal w3-hover-border-orange" type="button"  id="upload2">
-               Add Image
+               Show Images
             </button>
             <button class="w3-round w3-teal w3-hover-border-orange" type="button"  id="clearUp">
               ClearUp
@@ -101,7 +101,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
     <br>
     <div style="margin-left:50%;">
     <button class="w3-round w3-teal w3-hover-border-orange">Edit Chart</button>
-    <button class="w3-round w3-teal w3-hover-border-orange">Save</button>
+    <button class="w3-round w3-teal w3-hover-border-orange save-img">Save</button>
     </div>
     <br>
     <div id="toolbar">
@@ -111,6 +111,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
       <input id="lineWidth" name='lineWidth' type="number" value="5">
       <button id="clear">Clear</button>
   </div>
+  
   <div class="container w3-container drawing-board" style="overflow-x:scroll">
     <canvas class="d-flex mx-auto" height="674" width="837"
     id="drawing-board"></canvas>
