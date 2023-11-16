@@ -39,19 +39,65 @@
             }
             
         });
+//-------DISPLAY IMAGE--------///
+// Reference to Firebase Storage
+const storage2 = firebase.storage();
+// Reference to the folder where your images are stored
+    const imagesRef = storage2.ref("Teeth/"+patientid.value+"/Teeth/");
+// Function to fetch and display images
+    function displayImages() {
+        imagesRef.listAll().then(function (result) {
+            result.items.forEach(function (imageRef) {
+                // Get the download URL for each image
+                imageRef.getDownloadURL().then(function (url) {
+                    const imageElement = document.createElement("img");
+                    imageElement.className = ('d-flex p-2 w-100');
+                    imageElement.setAttribute('id','upImage');
+                    imageElement.setAttribute('onclick',"document.getElementById('modal01').style.display='block'");
+                    imageElement.src = url;
+                    document.getElementById("image-container").appendChild(imageElement);
+                    console.log(imageElement);
+                    imageDisplay = true;            
+                }).catch(function (error) {
+                    console.error("Error getting download URL:", error);
+                });
+            });          
+        }).catch(function (error) {
+            console.error("Error listing images:", error);
+        });
+    }
 //-------UPLOADING FILE IN STORAGE------------//
+        //--Disply images references
         var uploadbtn = document.getElementById("upload");
+        var uploadButton2 = document.getElementById('upload2');
+        var clearButton = document.getElementById('clearUp');
+        var imageDisplay = false;
+        // Call the function to upload images
         uploadbtn.addEventListener("click",uploadimage);
-
+        // Call the function to display images
+        uploadButton2.addEventListener("click",function(){
+            if(imageDisplay==true){
+                clearAttribute();
+            }
+            displayImages();
+        });
+        clearButton.addEventListener("click",function(){
+            clearAttribute();
+            console.log(imageDisplay);
+        });
+        function clearAttribute(){
+            const list = document.getElementById("image-container");
         
-        //document.getElementById(
-            //'contactForm').addEventListener('submit', submitForm);
-        
+            while (list.hasChildNodes()) {
+              list.removeChild(list.firstChild);
+            }
+         }
+//---UPLOAD IMAGE FUNCTION----//
         function uploadimage(){
         var type = getInputVal('types');
         var storage = firebase.storage();
         var file=document.getElementById("files").files[0];
-        var storageref=storage.ref();
+        var storageref=storage.ref("Teeth/"+patientid.value);
         var thisref=storageref.child(type).child(file.name).put(file);
         thisref.on('state_changed',function(snapshot) {
         
