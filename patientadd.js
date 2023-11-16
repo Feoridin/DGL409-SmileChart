@@ -1,9 +1,8 @@
-
 "use strict";
+var masterindex;
+export {masterindex};
     // Import the functions you need from the SDKs you need
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
-    var index;
-    export {index};
     
     // TODO: Add SDKs for Firebase products that you want to use
     // https://firebase.google.com/docs/web/setup#available-libraries
@@ -77,14 +76,22 @@
         button.addEventListener("click", function (index) {
         return function () {
             editPatient(index);
+            console.log(index);
         };
     }(i));
     
     buttonImage.addEventListener("click", function (index) {
+      
+      
+      
         return function () {
-            window.location.href="canvas.html"
+            //window.location.href="canvas.html"
+            editPatient(index);
+            masterindex = index+1;
+            
+            showPatientName();
         };   
-    });
+    }(i));
         cell7.appendChild(button);
         cell8.appendChild(buttonImage); // button in the last cell
         }
@@ -95,9 +102,9 @@
         var tableBody = document.getElementById("myTable").getElementsByTagName('tbody')[0];
         
     function editPatient(rowIndex){
-         
          patientIdrow = rowIndex+1;
          SelectData();
+         
         }
 //--------References--------------//
         var patientid = document.getElementById("idBox");
@@ -126,7 +133,7 @@
             lname.value = snapshot.val().PatientLastName;
             contact.value = snapshot.val().Contact;
             email.value = snapshot.val().Email;
-            genbox.value = snapshot.val().Gender;
+            genbox.value = snapshot.val().Gender; 
         }
         else{
             alert("No Data Found");
@@ -251,7 +258,6 @@ function AddPatient(){
 function SavePatient(){
     const dbref = ref(db);
     var pnumber = document.getElementById("idBox")
-    var patientIdNumber;
     var patientid = pnumber;
     console.log(patientid.value);
     set(ref(db, "Patient/"+patientid.value),{
@@ -269,9 +275,6 @@ function SavePatient(){
             .catch((error)=>{
                 alert("unsuccessful, error"+error);
             });
-            
-    
-   
         }
 
 
@@ -282,5 +285,36 @@ function SavePatient(){
         addbtn.addEventListener('click',AddPatient);
         savebtn.addEventListener('click',SavePatient);
         
+ // Get the Sidebar
+var mySidebar = document.getElementById("mySidebar");
+
+// Get the DIV with overlay effect
+var overlayBg = document.getElementById("myOverlay");
+
+// Toggle between showing and hiding the sidebar, and add overlay effect
+function w3_open() {
+  if (mySidebar.style.display === 'block') {
+    mySidebar.style.display = 'none';
+    overlayBg.style.display = "none";
+  } else {
+    mySidebar.style.display = 'block';
+    overlayBg.style.display = "block";
+  }
+}
+
+// Close the sidebar with the close button
+function w3_close() {
+  mySidebar.style.display = "none";
+  overlayBg.style.display = "none";
+}
+function showPatientName(){
+  window.location.href="canvas.html"
+  console.log(masterindex);
+      console.log("Hello");
+      set(ref(db, "Selected/"),{
+        PatientID: masterindex
+    })
+}
+
         
   
