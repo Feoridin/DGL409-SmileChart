@@ -48,7 +48,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
   <hr>
   <div class="w3-container">
     <h5>XRAY Images</h5>
-    <form class="container" id="contactForm2">
+    <form class="container" id="contactForm">
       <div class="card">
           <div class="card-body">
               <div class="form-group"
@@ -68,7 +68,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
            id="url">
            <button class="w3-round w3-teal w3-hover-border-orange my-2" type="button"  id="upload">
             Upload Image
-         </button>    
+           </button>    
            <button class="w3-round w3-teal w3-hover-border-orange" type="button"  id="upload2">
                Add Image
             </button>
@@ -116,11 +116,8 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
     id="drawing-board"></canvas>
   </div> 
 </div>
-<div id="modal01" class="w3-modal" onclick="showurl();this.style.display='none'">
-  <span class="w3-button w3-hover-red w3-xlarge w3-display-topright">&times;</span>
-  <div class="w3-modal-content w3-animate-zoom">
-    <div class = "container w3-bar-block" id="image-container2"></div>
-  </div>
+<div id="modal01" class="w3-modal" onclick="this.style.display='none'">
+  <img class="w3-modal-content" id="img01" style="width:50%">
 </div>
   <!-- Footer -->
   <footer class="w3-container w3-padding-16 w3-light-grey">
@@ -128,6 +125,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
   </footer>
   <!--<script src="smilechart.js"></script>-->
   <script type = "module" src="test.js"></script>
+  <script src="sidebar.js"></script>
   
   
   <!-- End page content -->
