@@ -66,34 +66,31 @@ export {masterindex};
         button.setAttribute("type","button"); // Add a class for styling
         button.setAttribute("data-toggle","modal");
         button.setAttribute("data-target","#exampleModalCenter");
-        button.classList.add("btn","w3-round", "w3-teal", "w3-hover-border-orange"); // Add a class for styling
-        buttonImage.classList.add("btn","w3-round", "w3-teal", "w3-hover-border-orange"); // Add a class for styling
-        //cell6.appendChild(button);
-        //cell7.appendChild(buttonImage);
+        button.classList.add("btn","w3-round", "w3-teal", "w3-hover-border-orange", "w3-border-black"); // Add a class for styling
+        buttonImage.classList.add("btn","w3-round", "w3-teal", "w3-hover-border-orange", "w3-border-black"); // Add a class for styling
         button.innerHTML = "Edit"; // Set the button text
         buttonImage.innerHTML = "Image";
+         //Add buttons in the last cell
+        cell7.appendChild(button);
+        cell8.appendChild(buttonImage);
         // Add a click event listener to the button and pass the row index
+        //This button edits the patient form
         button.addEventListener("click", function (index) {
         return function () {
             editPatient(index);
-            console.log(index);
+            console.log(i);
         };
     }(i));
-    
+    //This button will go to the canvas.html to edit the tooth chart
     buttonImage.addEventListener("click", function (index) {
-      
-      
-      
         return function () {
             //window.location.href="canvas.html"
             editPatient(index);
-            masterindex = index+1;
-            
+            masterindex = index+1; 
             showPatientName();
         };   
     }(i));
-        cell7.appendChild(button);
-        cell8.appendChild(buttonImage); // button in the last cell
+        
         }
         })
      
@@ -104,7 +101,6 @@ export {masterindex};
     function editPatient(rowIndex){
          patientIdrow = rowIndex+1;
          SelectData();
-         
         }
 //--------References--------------//
         var patientid = document.getElementById("idBox");
@@ -230,7 +226,6 @@ if (category.value === "By Patient ID"){
 }
 //--------ADD PATIENT FUNCTION------------------//
 function AddPatient(){
-    const dbref = ref(db);
     var patients = [];
     var patientIdNumber;
     var pnumber = document.getElementById("idBox")
@@ -243,17 +238,13 @@ function AddPatient(){
         snapshot.forEach((childSnapshot) => {
             patients.push(childSnapshot.val())
             patientIdNumber = patients.length+1;
-            patientid = patientIdNumber.value;
+            //patientid = patientIdNumber.value;
             pnumber.setAttribute("value",patientIdNumber);
             pnumber.setAttribute("placeholder",patientIdNumber+1);
         })
-        console.log(patientIdNumber);
-          
+        console.log(patientIdNumber);   
     })
-    
-    
-    
-        }
+    }
 //--------SAVE PATIENT FUNCTION------------------//
 function SavePatient(){
     const dbref = ref(db);
