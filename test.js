@@ -102,7 +102,6 @@ const storage2 = firebase.storage();
         var thisref=storageref.child(type).child(file.name).put(file);
         thisref.on('state_changed',function(snapshot) {
         
-        
         }, function(error) {
         
         }, function() {
@@ -122,10 +121,7 @@ const storage2 = firebase.storage();
         }
         //function getInputVal(id){
          //   document.getElementById('contactForm').reset();
-        
         //}
-        
-        
         // Function to get form values
         function getInputVal(id){
         return document.getElementById(id).value;
@@ -138,8 +134,6 @@ const storage2 = firebase.storage();
                 imageurl:url
             })
         }
-        
-
     }
     else{
         alert("No Data Found");
@@ -160,7 +154,7 @@ toolbar.addEventListener('click', e => {
     if (e.target.id === 'clear') {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         const backgroundImage = new Image();
-backgroundImage.src = "Images/ToothChart.jpg";
+        backgroundImage.src = "Images/ToothChart.jpg";
         backgroundImage.onload = function () {
           ctx.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height);
         };
@@ -168,13 +162,27 @@ backgroundImage.src = "Images/ToothChart.jpg";
 });
 
 const saveImg = document.querySelector(".save-img");
-
+var file=document.getElementById("drawing-board");
+console.log(file.value);
 saveImg.addEventListener("click", () => {
   const link = document.createElement("a"); // creating <a> element
   link.download = `${Date.now()}.jpg`; // passing current date as link download value
   link.href = canvas.toDataURL(); // passing canvasData as link href value
   link.click(); // clicking link to download image
-  
+  console.log(canvas.toDataURL());
+  canvas.toBlob(function (blob) {
+  var storageref = firebase.storage().ref();
+
+  var uploadRef = storageref.child('Teeth/Chart/'+link.download);
+  uploadRef.put(blob).then(function(snapshot){
+    console.log('uploaddone')
+    uploadRef.getDownloadURL().then(function (url) {
+        console.log('this shold be a firebase url', url)
+    })
+  })
+})
+
+
 });
 
 
