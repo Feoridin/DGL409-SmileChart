@@ -159,17 +159,24 @@ var file=document.getElementById("drawing-board");
 
 saveImg.addEventListener("click", () => {
   const link = document.createElement("a"); // creating <a> element
-  link.download = `${Date.now()}.jpg`; // passing current date as link download value
+  link.download = `${Date.now()}`; // passing current date as link download value
   link.href = canvas.toDataURL(); // passing canvasData as link href value
   link.click(); // clicking link to download image
-  console.log(canvas.toDataURL());
+  const date = new Date('Jul 12 2011');
+  const today = date.toDateString();
+  console.log(today);
   canvas.toBlob(function (blob) {
   var storageref = firebase.storage().ref();
 
-  var uploadRef = storageref.child('Teeth/Chart/'+link.download);
+  var uploadRef = storageref.child('Teeth/Chart/'+link.download+today);
   uploadRef.put(blob).then(function(snapshot){
     console.log('uploaddone')
     uploadRef.getDownloadURL().then(function (url) {
+        const db = getDatabase(app);
+        set(ref(db, "Patient/"+patientid.value+"/URLImages/"+today+"/"),{
+            imageref: uploadRef.name,
+            imageurl:url
+        })
         console.log('this shold be a firebase url', url)
     })
   })
