@@ -23,7 +23,7 @@
  firebase.initializeApp(firebaseConfig);
  import {getDatabase, ref, get, set, child, update, remove, query, limitToLast, onValue, onChildAdded, onChildChanged}
  from "https://www.gstatic.com/firebasejs/10.5.0/firebase-database.js";
- import {getStorage, ref as sRef, uploadBytesResumable, getDownloadURL}
+ import {getStorage, ref as sRef, uploadBytesResumable, getDownloadURL, listAll}
  from "https://www.gstatic.com/firebasejs/10.5.0/firebase-storage.js";
  const db = getDatabase(app);
  const dbref = ref(db);
@@ -134,16 +134,9 @@ const storage2 = firebase.storage();
                 imageurl:url
             })
         }
-    }
-    else{
-        alert("No Data Found");
-    }
-})
-.catch((error)=>{
-alert("unsuccesful, error"+error);
-});
-
-//Set Background Image Canva
+        //
+        console.log("hello"+patientid.value);
+        //Set Background Image Canva
 
 const backgroundImage = new Image();
 backgroundImage.src = "Images/ToothChart.jpg";
@@ -163,7 +156,7 @@ toolbar.addEventListener('click', e => {
 
 const saveImg = document.querySelector(".save-img");
 var file=document.getElementById("drawing-board");
-console.log(file.value);
+
 saveImg.addEventListener("click", () => {
   const link = document.createElement("a"); // creating <a> element
   link.download = `${Date.now()}.jpg`; // passing current date as link download value
@@ -181,9 +174,35 @@ saveImg.addEventListener("click", () => {
     })
   })
 })
-
-
+});//End of Set and Save Image on Canvas
+    }
+    else{
+        alert("No Data Found");
+    }
+})
+.catch((error)=>{
+alert("unsuccesful, error"+error);
 });
+
+const storage = getStorage();
+
+// Create a reference under which you want to list
+const listRef = sRef(storage, 'Teeth/Chart/');
+
+// Find all the prefixes and items.
+listAll(listRef)
+  .then((res) => {
+    res.prefixes.forEach((folderRef) => {
+      // All the prefixes under listRef.
+      // You may call listAll() recursively on them.
+    });
+    res.items.forEach((itemRef) => {
+      // All the items under listRef.
+      console.log(itemRef.name);
+    });
+  }).catch((error) => {
+    // Uh-oh, an error occurred!
+  });
 
 
 
