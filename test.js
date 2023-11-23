@@ -136,6 +136,7 @@ const storage2 = firebase.storage();
         }
         //
         console.log("hello"+patientid.value);
+        listChart();
         //Set Background Image Canva
 
 const backgroundImage = new Image();
@@ -168,16 +169,18 @@ saveImg.addEventListener("click", () => {
   canvas.toBlob(function (blob) {
   var storageref = firebase.storage().ref();
 
-  var uploadRef = storageref.child('Teeth/Chart/'+link.download+today);
+  var uploadRef = storageref.child('Teeth/Chart/'+patientid.value+'/'+link.download+today);
   uploadRef.put(blob).then(function(snapshot){
     console.log('uploaddone')
     uploadRef.getDownloadURL().then(function (url) {
         const db = getDatabase(app);
-        set(ref(db, "Patient/"+patientid.value+"/URLImages/"+today+"/"),{
+        set(ref(db, "Patient/"+patientid.value+"/URLImages/"+today+"/"+link.download+'/'),{
             imageref: uploadRef.name,
             imageurl:url
         })
         console.log('this shold be a firebase url', url)
+        addChart();
+        
     })
   })
 })
@@ -191,26 +194,54 @@ saveImg.addEventListener("click", () => {
 alert("unsuccesful, error"+error);
 });
 
+function listChart(){
+    console.log('HELLO2');
 const storage = getStorage();
 
 // Create a reference under which you want to list
-const listRef = sRef(storage, 'Teeth/Chart/');
+const listRef = sRef(storage, 'Teeth/Chart/'+patientid.value);
 
 // Find all the prefixes and items.
 listAll(listRef)
   .then((res) => {
-    res.prefixes.forEach((folderRef) => {
-      // All the prefixes under listRef.
-      // You may call listAll() recursively on them.
-    });
+    
     res.items.forEach((itemRef) => {
       // All the items under listRef.
-      console.log(itemRef.name);
+      
+      var chartlist = [];
+      chartlist.push(itemRef.name);
+      var charthead = document.getElementById('chartbox');
+      var chartoption = document.createElement('option');
+      console.log(chartlist);
+      for (var i = 0; i < chartlist.length; i++) {
+        chartoption.setAttribute('value',chartlist[i]);
+        chartoption.setAttribute('label',chartlist[i]);
+        console.log(chartoption);  
+        charthead.appendChild(chartoption);
+      }
     });
   }).catch((error) => {
     // Uh-oh, an error occurred!
   });
+}
+function addChart(){
+    location.reload();
+    console.log('HELLO2');
 
+}
+var showbtn = document.getElementById('showChart')
+showbtn.addEventListener('click',showchart);
+function showchart(){
+    var charthead = document.getElementById('chartbox')
+    var chartvalue = charthead.options[charthead.selectedIndex].getAttribute('value')
+    console.log(chartvalue);
+    const backgroundImage = new Image();
+    backgroundImage.src = "https://firebasestorage.googleapis.com/v0/b/dgl-409.appspot.com/o/Teeth%2FChart%2F1%2F1700763980664Tue%20Jul%2012%202011?alt=media&token=d1290783-0f00-471b-8905-d6de7cbf3f22";
+backgroundImage.onload = function () {
+ctx.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height);
+}
+
+}
 
 
 
