@@ -99,10 +99,19 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
 <!-- !PAGE CONTENT! -->
 <div class="w3-main" style="margin-left:300px;margin-top:43px;">
     <br>
-    <div style="margin-left:50%;">
-    <button class="w3-round w3-teal w3-hover-border-orange">Edit Chart</button>
-    <button class="w3-round w3-teal w3-hover-border-orange save-img">Save</button>
-    </div>
+    
+      <form class="w3-container w3-card-4 mt-4" id="chartform">
+        <select class="w3-select mb-4" name="option" id="chartbox">
+          <option value="" disabled selected id="chartOption">Select Patient's Chart</option>
+        </select>
+        
+      </form>
+      <p class="ml-4 mt-2"><button class="w3-round w3-teal w3-hover-border-orange mt-2" id="showChart">Show Chart</button>
+        <button class="w3-round w3-teal w3-hover-border-orange save-img">Save</button></p>
+        
+      
+    
+    
     <br>
     <div id="toolbar">
       <label for="stroke">Stroke</label>
