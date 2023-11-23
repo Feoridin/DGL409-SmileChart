@@ -51,7 +51,6 @@ export {masterindex};
             var cell7 = row.insertCell(6);  // Add a cell for the button
             var cell8 = row.insertCell(7);  // Add a cell for the button
 
-
             cell1.innerHTML = patients[i].PatientID;
             cell2.innerHTML = patients[i].PatientFirstName;
             cell3.innerHTML = patients[i].PatientLastName;
@@ -78,14 +77,13 @@ export {masterindex};
         button.addEventListener("click", function (index) {
         return function () {
             editPatient(index);
-            console.log(i);
         };
     }(i));
     //This button will go to the canvas.html to edit the tooth chart
     buttonImage.addEventListener("click", function (index) {
         return function () {
             //window.location.href="canvas.html"
-            editPatient(index);
+            //editPatient(index);
             masterindex = index+1; 
             showPatientName();
         };   
@@ -101,6 +99,7 @@ export {masterindex};
     function editPatient(rowIndex){
          patientIdrow = rowIndex+1;
          SelectData();
+         console.log(patientIdrow);
         }
 //--------References--------------//
         var patientid = document.getElementById("idBox");
@@ -138,6 +137,7 @@ export {masterindex};
     .catch((error)=>{
     alert("unsuccesful, error"+error);
     })
+    
     }
     //--------UPDATE DATA FUNCTION--------------//
     function UpdateData(){
@@ -225,26 +225,30 @@ if (category.value === "By Patient ID"){
   }
 }
 //--------ADD PATIENT FUNCTION------------------//
-function AddPatient(){
+function AddPatient(){ 
+  document.getElementById("myForm").reset();
     var patients = [];
     var patientIdNumber;
-    var pnumber = document.getElementById("idBox")
-    var button2 = document.getElementById("updateButton")
-    var button3 = document.getElementById("updateButton2")
+    var pnumber = document.getElementById("idBox");
+    var button2 = document.getElementById("updateButton");
+    var button3 = document.getElementById("updateButton2");
     button2.setAttribute("hidden","hidden");
     button3.removeAttribute("hidden");
-    
     onValue(recentPostRef, (snapshot) => {
         snapshot.forEach((childSnapshot) => {
+
             patients.push(childSnapshot.val())
             patientIdNumber = patients.length+1;
-            //patientid = patientIdNumber.value;
             pnumber.setAttribute("value",patientIdNumber);
-            pnumber.setAttribute("placeholder",patientIdNumber+1);
+            pnumber.setAttribute("placeholder",patientIdNumber);
+            console.log(pnumber.value);
         })
-        console.log(patientIdNumber);   
+          
     })
     }
+  function clearform(){
+    location.reload();
+  }
 //--------SAVE PATIENT FUNCTION------------------//
 function SavePatient(){
     const dbref = ref(db);
@@ -261,7 +265,6 @@ function SavePatient(){
             })
             .then(()=>{
                 alert("data stored successfully");
-                
             })
             .catch((error)=>{
                 alert("unsuccessful, error"+error);
