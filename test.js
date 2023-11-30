@@ -263,7 +263,7 @@ function listChart() {
       // Uh-oh, an error occurred!
     });
 }
-
+//THis function shows the chart images according to the selected saved chart
 var showbtn = document.getElementById("showChart");
 showbtn.addEventListener("click", showchart);
 function showchart() {
@@ -291,7 +291,7 @@ function showchartimage(){
     ctx.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height);
   };}
 }
-
+//This function populates the chart list after pressing the save button
 function listChart2() {
   console.log("HELLO2 List Chart2");
   function removeAllChildNodes(parent) {
