@@ -7,6 +7,7 @@
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="style.css">
 <!-- Bootstrap CSS -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <script src="https://www.gstatic.com/firebasejs/3.7.4/firebase.js"></script>
@@ -121,25 +122,38 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
       <label for="lineWidth" class = "ml-2">Line Width</label>
       <input id="lineWidth" name='lineWidth' type="number" value="5" style="width:40px;height: 27px;" class="mx-1">
       
-      <section class="tools-board">
+      <section class="tools-board d-flex">
       <ul class="options list-group list-group-horizontal">
-        <li class="option tool mx-1" id="rectangle" style="list-style: none;">
+        <li class="option tool ml-3" id="rectangle" style="list-style: none;">
           <img src="icons/rectangle.svg" alt="">
           <span>Rectangle</span>
         </li>
-        <li class="option tool mx-1" id="circle" style="list-style: none;">
+        <li class="option tool ml-3" id="circle" style="list-style: none;">
           <img src="icons/circle.svg" alt="">
           <span>Circle</span>
         </li>
-        <li class="option tool mx-1" id="triangle" style="list-style: none;">
+        <li class="option tool ml-3" id="triangle" style="list-style: none;">
           <img src="icons/triangle.svg" alt="">
           <span>Triangle</span>
         </li>
-        <li class="option mx-1" style="list-style: none;">
+        <li class="option ml-4 mr-3" style="list-style: none;">
           <input type="checkbox" id="fill-color">
           <label for="fill-color">Fill color</label>
         </li>
         </ul>
+        
+          <label class="title mr-3">Options</label>
+          <ul class="options list-group list-group-horizontal">
+            <li class="option active tool mr-3" id="brush">
+              <img src="icons/brush.svg" alt="">
+              <span>Brush</span>
+            </li>
+            <li class="option tool mr-3" id="eraser">
+              <img src="icons/eraser.svg" alt="">
+              <span>Eraser</span>
+            </li>
+          </ul>
+        
       </section>
       <button id="clear" style="width:60px;height: 27px;" class="w3-round w3-teal w3-hover-border-orange mx-1">Clear</button>
   </div>
