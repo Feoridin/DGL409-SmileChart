@@ -109,12 +109,26 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
     
     
     <br>
-    <div id="toolbar">
-      <label for="stroke">Stroke</label>
-      <input id="stroke" name='stroke' type="color">
+    <div id="toolbar" class="d-flex align-content-center">
+     
+      <label for="stroke" class="mx-1">Stroke</label>
+      <input id="stroke" name='stroke' type="color" class="mx-1">
+      <input id="stroke1" name='stroke' type="button" style="width: 50px;height: 27px; background-color:red; color: red" value="#FF0000" class="mx-1">
+      <input id="stroke2" name='stroke' type="button" style="width: 50px;height: 27px; background-color:green; color: green" value="#008000" class="mx-1">
+      <input id="stroke3" name='stroke' type="button" style="width: 50px;height: 27px; background-color:blue; color: blue" value="#0000FF" class="mx-1">
+      
+      
       <label for="lineWidth">Line Width</label>
       <input id="lineWidth" name='lineWidth' type="number" value="5">
       <button id="clear">Clear</button>
+      <section class="tools-board">
+      <ul class="options">
+        <li class="option tool" id="rectangle">
+          <img src="icons/rectangle.svg" alt="">
+          <span>Rectangle</span>
+        </li>
+        </ul>
+      </section>
   </div>
   
   <div class="container w3-container drawing-board" style="overflow-x:scroll">

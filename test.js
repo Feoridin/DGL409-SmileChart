@@ -268,28 +268,37 @@ var showbtn = document.getElementById("showChart");
 showbtn.addEventListener("click", showchart);
 function showchart() {
   var charthead = document.getElementById("chartbox");
-  var chartvaluehead =
-    charthead.options[charthead.selectedIndex].getAttribute("value");
+  var chartvaluehead = charthead.options[charthead.selectedIndex].getAttribute("value");
   var chartvalue = chartvaluehead.slice(13);
- var chartvalue1 = chartvaluehead.slice(0,13)
-console.log(chartvalue1);
+  var chartvalue1 = chartvaluehead.slice(0, 13);
+  console.log(chartvalue1);
   var patientchartimage;
   console.log(chartvalue);
-  get(child(dbref,"Patient/"+patientid.value+"/URLImages/"+chartvalue+"/"+chartvalue1)).then((snapshot)=>{
-    if(snapshot.exists()){
-        patientchartimage = snapshot.val().imageurl;
-        console.log(patientchartimage);
-        showchartimage()
+  get(
+    child(
+      dbref,
+      "Patient/" +
+        patientid.value +
+        "/URLImages/" +
+        chartvalue +
+        "/" +
+        chartvalue1
+    )
+  ).then((snapshot) => {
+    if (snapshot.exists()) {
+      patientchartimage = snapshot.val().imageurl;
+      console.log(patientchartimage);
+      showchartimage();
     }
-})
-function showchartimage(){
-  const backgroundImage = new Image();
-  backgroundImage.crossOrigin = 'anonymous';
-  backgroundImage.src =
-    patientchartimage;
-  backgroundImage.onload = function () {
-    ctx.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height);
-  };}
+  });
+  function showchartimage() {
+    const backgroundImage = new Image();
+    backgroundImage.crossOrigin = "anonymous";
+    backgroundImage.src = patientchartimage;
+    backgroundImage.onload = function () {
+      ctx.drawImage(backgroundImage, 0, 0, canvas.width, canvas.height);
+    };
+  }
 }
 //This function populates the chart list after pressing the save button
 function listChart2() {
