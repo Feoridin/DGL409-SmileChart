@@ -109,7 +109,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
     
     
     <br>
-    <div id="toolbar" class="d-flex align-content-center">
+    <div id="toolbar" class="d-flex align-content-center mb-2">
      
       <label for="stroke" class="mx-1">Stroke</label>
       <input id="stroke" name='stroke' type="color" class="mx-1">
@@ -118,17 +118,30 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
       <input id="stroke3" name='stroke' type="button" style="width: 50px;height: 27px; background-color:blue; color: blue" value="#0000FF" class="mx-1">
       
       
-      <label for="lineWidth">Line Width</label>
-      <input id="lineWidth" name='lineWidth' type="number" value="5">
-      <button id="clear">Clear</button>
+      <label for="lineWidth" class = "ml-2">Line Width</label>
+      <input id="lineWidth" name='lineWidth' type="number" value="5" style="width:40px;height: 27px;" class="mx-1">
+      
       <section class="tools-board">
-      <ul class="options">
-        <li class="option tool" id="rectangle">
+      <ul class="options list-group list-group-horizontal">
+        <li class="option tool mx-1" id="rectangle" style="list-style: none;">
           <img src="icons/rectangle.svg" alt="">
           <span>Rectangle</span>
         </li>
+        <li class="option tool mx-1" id="circle" style="list-style: none;">
+          <img src="icons/circle.svg" alt="">
+          <span>Circle</span>
+        </li>
+        <li class="option tool mx-1" id="triangle" style="list-style: none;">
+          <img src="icons/triangle.svg" alt="">
+          <span>Triangle</span>
+        </li>
+        <li class="option mx-1" style="list-style: none;">
+          <input type="checkbox" id="fill-color">
+          <label for="fill-color">Fill color</label>
+        </li>
         </ul>
       </section>
+      <button id="clear" style="width:60px;height: 27px;" class="w3-round w3-teal w3-hover-border-orange mx-1">Clear</button>
   </div>
   
   <div class="container w3-container drawing-board" style="overflow-x:scroll">
