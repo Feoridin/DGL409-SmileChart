@@ -225,3 +225,15 @@ function onClick(element) {
   document.getElementById("img01").src = element.src;
   document.getElementById("modal01").style.display = "block";
 }
+//Selecting the shape for drawing
+const toolBtns = document.querySelectorAll(".tool")
+toolBtns.forEach(btn => {
+  btn.addEventListener("click", () => { // adding click event to all tool option
+      // removing active class from the previous option and adding on current clicked option
+      document.querySelector(".options .active").classList.remove("active");
+      btn.classList.add("active");
+      selectedTool = btn.id;
+      console.log("Shape Hello")
+  });
+});
+
