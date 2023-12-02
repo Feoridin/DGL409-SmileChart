@@ -97,20 +97,19 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
 <!-- !PAGE CONTENT! -->
 <div class="w3-main" style="margin-left:300px;margin-top:43px;">
     <br>
-    
+    <div>
       <form class="w3-container mt-4" id="chartform">
         <select class="w3-select mb-2" name="option" id="chartbox">
           <option value="" disabled selected id="chartOption">Select Patient's Chart</option>
         </select>
       </form>
-      <div class="ml-4 mt-2"><button class="w3-round w3-teal w3-hover-border-orange" id="showChart">Show Chart</button>
-        <button class="w3-round w3-teal w3-hover-border-orange save-img">Save</button></div>
-        
-      
-    
-    
+      <div class="ml-3 mt-2">
+        <button class="w3-round w3-teal w3-hover-border-orange mx-1" id="showChart">Show Chart</button>
+        <button class="w3-round w3-teal w3-hover-border-orange save-img mx-1">Save</button>
+        <button class="w3-round w3-teal w3-hover-border-orange mx-1" id="delete">Delete</button>
+      </div>
     <br>
-    <div id="toolbar" class="d-flex align-content-center mb-2">
+    <div id="toolbar" class="d-flex align-content-center ml-3 mb-2">
      
       <label for="stroke" class="mx-1">Stroke</label>
       <input id="stroke" name='stroke' type="color" class="mx-1">
@@ -157,7 +156,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
       </section>
       <button id="clear" style="width:60px;height: 27px;" class="w3-round w3-teal w3-hover-border-orange mx-1">Clear</button>
   </div>
-  
+</div>
   <div class="container w3-container drawing-board" style="overflow-x:scroll">
     <canvas class="d-flex mx-auto" height="674" width="837"
     id="drawing-board"></canvas>
