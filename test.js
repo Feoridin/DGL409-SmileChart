@@ -40,6 +40,7 @@ import {
   uploadBytesResumable,
   getDownloadURL,
   listAll,
+  deleteObject,
 } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-storage.js";
 const db = getDatabase(app);
 const dbref = ref(db);
@@ -162,7 +163,7 @@ get(child(dbref, "Selected"))
         });
       }
       //
-      console.log("hello" + patientid.value);
+
       listChart();
       //Set Background Image Canva
 
@@ -192,7 +193,6 @@ get(child(dbref, "Selected"))
         link.click(); // clicking link to download image
         const date = new Date();
         const today = date.toDateString();
-        console.log(today);
         canvas.toBlob(function (blob) {
           var storageref = firebase.storage().ref();
 
@@ -234,7 +234,6 @@ get(child(dbref, "Selected"))
   });
 
 function listChart() {
-  console.log("HELLO2 List Chart");
   const storage = getStorage();
 
   // Create a reference under which you want to list
@@ -245,16 +244,14 @@ function listChart() {
     .then((res) => {
       res.items.forEach((itemRef) => {
         // All the items under listRef.
-
         var chartlist = [];
         chartlist.push(itemRef.name);
         var charthead = document.getElementById("chartbox");
         var chartoption = document.createElement("option");
-        console.log(chartlist);
+
         for (var i = 0; i < chartlist.length; i++) {
           chartoption.setAttribute("value", chartlist[i]);
           chartoption.setAttribute("label", chartlist[i]);
-          console.log(chartoption);
           charthead.appendChild(chartoption);
         }
       });
@@ -268,7 +265,8 @@ var showbtn = document.getElementById("showChart");
 showbtn.addEventListener("click", showchart);
 function showchart() {
   var charthead = document.getElementById("chartbox");
-  var chartvaluehead = charthead.options[charthead.selectedIndex].getAttribute("value");
+  var chartvaluehead =
+    charthead.options[charthead.selectedIndex].getAttribute("value");
   var chartvalue = chartvaluehead.slice(13);
   var chartvalue1 = chartvaluehead.slice(0, 13);
   console.log(chartvalue1);
@@ -319,4 +317,44 @@ function listChart2() {
   chartoption.setAttribute("label", "Select Patient's Chart");
   charthead.appendChild(chartoption);
   listChart();
+}
+
+var delbtn = document.getElementById("delete");
+delbtn.addEventListener("click", deletechart);
+function deletechart() {
+  var charthead = document.getElementById("chartbox");
+  var chartvaluehead =
+    charthead.options[charthead.selectedIndex].getAttribute("value");
+  var chartvalue = chartvaluehead.slice(13);
+  var chartvalue1 = chartvaluehead.slice(0, 13);
+  const storage = getStorage();
+  const desertRef = sRef(
+    storage,
+    "Teeth/Chart/" + patientid.value + "/" + chartvaluehead
+  );
+  console.log(chartvalue1);
+  console.log(chartvalue);
+  console.log(chartvaluehead);
+  remove(
+    ref(
+      db,
+      "Patient/" +
+        patientid.value +
+        "/URLImages/" +
+        chartvalue +
+        "/" +
+        chartvalue1
+    )
+  );
+  // Delete the file
+  deleteObject(desertRef)
+    .then(() => {
+      // File deleted successfully
+      console.log("File deleted");
+    })
+    .catch((error) => {
+      // Uh-oh, an error occurred!
+      console.log("This is the Error:" + error);
+    });
+  location.reload();
 }
