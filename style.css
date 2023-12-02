@@ -8,6 +8,7 @@
   }
   .option:is(:hover, .active) :where(span, label){
     color: teal;
+    text-decoration: underline;
   }
   .option{
     list-style: none

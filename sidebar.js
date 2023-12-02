@@ -26,12 +26,15 @@ colorPicker.addEventListener('click', hide)
 function hide(e){
 if (e.target.id === "stroke1") {
   ctx.strokeStyle = e.target.value;
+  ctx.fillStyle = e.target.value;
 }
 if (e.target.id === "stroke2") {
   ctx.strokeStyle = e.target.value;
+  ctx.fillStyle = e.target.value;
 }
 if (e.target.id === "stroke3") {
   ctx.strokeStyle = e.target.value;
+  ctx.fillStyle = e.target.value;
 }
 }
 //Canvas Function
@@ -46,7 +49,7 @@ canvas.width = canvas.offsetWidth;
 canvas.height = canvas.offsetHeight;
 
 let isPainting = false;
-let lineWidth = 5;
+let lineWidth = 3;
 let startX;
 let startY;
 
@@ -63,15 +66,22 @@ toolbar.addEventListener("change", (e) => {
 });
 
 const draw = (e) => {
-  if (!isPainting) {
-    return;
-  }
-  snapshot = context.getImageData(0, 0, canvas.width, canvas.height);
-  ctx.lineWidth = lineWidth;
-  ctx.lineCap = "round";
+  if(!isPainting) return; // if isDrawing is false return from here
+    ctx.putImageData(snapshot, 0, 0); // adding copied canvas data on to this canvas
 
-  ctx.lineTo(e.offsetX, e.offsetY);
-  ctx.stroke();
+    if(selectedTool === "brush" || selectedTool === "eraser") {
+        // if selected tool is eraser then set strokeStyle to white 
+        // to paint white color on to the existing canvas content else set the stroke color to selected color
+        ctx.strokeStyle = selectedTool === "eraser" ? "#fff" : selectedColor;
+        ctx.lineTo(e.offsetX, e.offsetY); // creating line according to the mouse pointer
+        ctx.stroke(); // drawing/filling line with color
+    } else if(selectedTool === "rectangle"){
+        drawRect(e);
+    } else if(selectedTool === "circle"){
+        drawCircle(e);
+    } else {
+        drawTriangle(e);
+    }
 };
 
 canvas.addEventListener("mousedown", (e) => {
@@ -79,6 +89,10 @@ canvas.addEventListener("mousedown", (e) => {
   prevMouseX = e.offsetX; // passing current mouseX position as prevMouseX value
   prevMouseY = e.offsetY; // passing current mouseY position as prevMouseY value
   ctx.beginPath(); // creating new path to draw
+  ctx.lineWidth = lineWidth;
+  ctx.lineCap = "round";
+  ctx.lineTo(e.offsetX, e.offsetY);
+  ctx.stroke();
   snapshot = ctx.getImageData(0, 0, canvas.width, canvas.height);
 });
 
@@ -219,7 +233,7 @@ function ongoingTouchIndexById(idToFind) {
     }
   }
   return -1; // not found
-}
+}//End of touchscreen function
 
 function onClick(element) {
   document.getElementById("img01").src = element.src;
@@ -236,4 +250,38 @@ toolBtns.forEach(btn => {
       console.log("Shape Hello")
   });
 });
+const fillColor = document.querySelector("#fill-color");
+let selectedTool = "brush";
+let selectedColor = fillColor;
+
+const drawRect = (e) => {
+  
+  // if fillColor isn't checked draw a rect with border else draw rect with background
+  if(!fillColor.checked) {
+    
+      // creating circle according to the mouse pointer
+      return ctx.strokeRect(e.offsetX, e.offsetY, prevMouseX - e.offsetX, prevMouseY - e.offsetY);
+  }
+  
+  console.log(ctx.lineWidth)
+  ctx.fillRect(e.offsetX, e.offsetY, prevMouseX - e.offsetX, prevMouseY - e.offsetY);
+  ctx.lineWidth = 1;
+}
+
+const drawCircle = (e) => {
+    ctx.beginPath(); // creating new path to draw circle
+    // getting radius for circle according to the mouse pointer
+    let radius = Math.sqrt(Math.pow((prevMouseX - e.offsetX), 2) + Math.pow((prevMouseY - e.offsetY), 2));
+    ctx.arc(prevMouseX, prevMouseY, radius, 0, 2 * Math.PI); // creating circle according to the mouse pointer
+    fillColor.checked ? ctx.fill() : ctx.stroke(); // if fillColor is checked fill circle else draw border circle
+}
+
+const drawTriangle = (e) => {
+    ctx.beginPath(); // creating new path to draw circle
+    ctx.moveTo(prevMouseX, prevMouseY); // moving triangle to the mouse pointer
+    ctx.lineTo(e.offsetX, e.offsetY); // creating first line according to the mouse pointer
+    ctx.lineTo(prevMouseX * 2 - e.offsetX, e.offsetY); // creating bottom line of triangle
+    ctx.closePath(); // closing path of a triangle so the third line draw automatically
+    fillColor.checked ? ctx.fill() : ctx.stroke(); // if fillColor is checked fill triangle else draw border
+}
 
