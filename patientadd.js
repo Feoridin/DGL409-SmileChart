@@ -67,6 +67,7 @@ export {masterindex};
         button.setAttribute("data-target","#exampleModalCenter");
         button.classList.add("btn","w3-round", "w3-teal", "w3-hover-border-orange", "w3-border-black"); // Add a class for styling
         buttonImage.classList.add("btn","w3-round", "w3-teal", "w3-hover-border-orange", "w3-border-black"); // Add a class for styling
+        buttonImage.setAttribute("id","imageButton");
         button.innerHTML = "Edit"; // Set the button text
         buttonImage.innerHTML = "Image";
          //Add buttons in the last cell
