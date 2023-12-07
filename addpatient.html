@@ -8,14 +8,21 @@
     <link rel="icon" type="image/x-icon" href="/Images/favicon.ico">
     <title>Smile Chart</title>
 </head>
-<body style="margin-top: 5rem;">
+<body style="margin-top: 5rem;background-image: url('Images/dentalchart.jpg');">
     <!-- Top container -->
-<div class="w3-bar w3-top w3-teal w3-large px-2" style="z-index:4">
-    <button class="w3-bar-item w3-button w3-hide-large w3-hover-none w3-hover-text-light-grey" onclick="w3_open();"><i class="fa fa-bars"></i>  Menu</button>
-    <span class="w3-bar-item w3-right m-0 pt-4">SmileChart</span>
+<div class="w3-bar w3-top w3-teal w3-large px-2 d-flex flex-row" style="z-index:4">
     <div class="container p-3" style="margin-left: 1rem;"> 
-      <img src="Images/Smiley.png" alt="Smiley" height="50vh">Patient Bio
+        <img src="Images/Smiley.png" alt="Smiley" height="50vh">Patient Bio
+      </div>
+    <button class="w3-bar-item w3-button w3-hide-large w3-hover-none w3-hover-text-light-grey" onclick="w3_open();"><i class="fa fa-bars"></i>  Menu</button>
+    <div class="container pt-3">
+    <h4 id="greet"></h4>
+    <button class="w3-round w3-light-grey w3-hover-border-orange mt-2 px-3" type="button" id="signoutbutton">Sign Out</button>
+    <span class="w3-bar-item w3-right">SmileChart</span>
     </div>
+
+    
+    
   </div>
     <div class="input-group my-3 container pt-4">
         <input id="searchBar" type="text" class="form-control" placeholder="Search a Record" aria-label="Text input with dropdown button">
