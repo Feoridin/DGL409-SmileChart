@@ -19,7 +19,7 @@
 html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
 </style>
 </head>
-<body class="w3-light-grey">
+<body style="background-image: url('Images/dentalchart.jpg');">
 
 <!-- Top container -->
 <div class="w3-bar w3-top w3-teal w3-large px-2" style="z-index:4">
@@ -98,7 +98,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
 <!-- !PAGE CONTENT! -->
 <div class="w3-main" style="margin-left:300px;margin-top:43px;">
     <br>
-    <div>
+    <div id="scroll2" style="overflow-x:scroll">
       <form class="w3-container mt-4" id="chartform">
         <select class="w3-select mb-2" name="option" id="chartbox">
           <option value="" disabled selected id="chartOption">Select Patient's Chart</option>
@@ -158,18 +158,16 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
       <button id="clear" style="width:60px;height: 27px;" class="w3-round w3-teal w3-hover-border-orange mx-1">Clear</button>
   </div>
 </div>
-  <div class="container w3-container drawing-board" style="overflow-x:scroll">
-    <canvas class="d-flex mx-auto" height="720" width="1040"
+  <div class="container w3-container drawing-board mt-2" style="overflow-x:scroll" id="scroll">
+    <canvas class="d-flex mx-auto mb-4" height="720" width="1040"
     id="drawing-board"></canvas>
-  </div> 
+  </div>
 </div>
+<div class="container mb-4">
+</div> 
 <div id="modal01" class="w3-modal" onclick="this.style.display='none'">
   <img class="w3-modal-content" id="img01" style="width:50%">
 </div>
-  <!-- Footer -->
-  <footer class="w3-container w3-padding-16 w3-light-grey">
-    <h4>FOOTER</h4>
-  </footer>
   <!--<script src="smilechart.js"></script>-->
   <script type = "module" src="test.js"></script>
   <script src="sidebar.js"></script>
