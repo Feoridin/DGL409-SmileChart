@@ -22,12 +22,19 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
 <body style="background-image: url('Images/dentalchart.jpg');">
 
 <!-- Top container -->
-<div class="w3-bar w3-top w3-teal w3-large px-2" style="z-index:4">
-  <div class="w3-col s4 p-2">
-    <img src="Images/Smiley.png" class="ml-3" height="50vh">
-  </div>
+<div class="w3-bar w3-top w3-teal w3-large px-2 d-flex flex-row" style="z-index:4">
+  <div class="container p-3 col-3" style="margin-left: 1rem;"> 
+      <img src="Images/Smiley.png" alt="Smiley" height="50vh">Patient Bio
+    </div>
   <button class="w3-bar-item w3-button w3-hide-large w3-hover-none w3-hover-text-light-grey" onclick="w3_open();"><i class="fa fa-bars"></i>  Menu</button>
-  <span class="w3-bar-item w3-right pt-3 m-0">SmileChart</span>
+  <div class="container pt-2 d-flex flex-row align-items-center col-8 justify-content-between">
+  <h5 class="container col-5 m-0 text-center" id="greet"></h5>
+  <button class="w3-round w3-light-grey w3-hover-border-orange col-2" type="button" id="signoutbutton">Sign Out</button>
+  <span class="w3-bar-item w3-right text-end">SmileChart</span>
+  </div>
+
+  
+  
 </div>
 
 <!-- Sidebar/menu -->
@@ -171,6 +178,8 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
   <!--<script src="smilechart.js"></script>-->
   <script type = "module" src="test.js"></script>
   <script src="sidebar.js"></script>
+  <script type = "module" src="register.js"></script>
+  <script type="module" src="signout.js"></script>
   
   
   <!-- End page content -->
