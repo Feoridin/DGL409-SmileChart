@@ -1,1 +1,7 @@
 # DGL409-SmileChart
+SmileChart is a comprehensive web application using HTML, CSS and Javascript. It is  designed to streamline dental image management and patient record-keeping. The app offers a user-friendly interface that seamlessly integrates various functionalities to enhance dental practices. Its intuitive interface seamlessly fetches and displays teeth X-ray images, providing dental professionals with a centralized platform for streamlined diagnostics. The canvas program introduces a powerful tool for editing dental charts, ensuring precision and convenience, with the edited charts securely saved on Firebase Realtime Database. Patient record management becomes effortless, allowing practitioners to create and edit detailed records within the application. The integration of Firebase ensures robust cloud-based storage, guaranteeing accessibility and data security.
+
+With user authentication in place, SmileChart prioritizes the privacy of sensitive patient information, allowing only authorized access. This comprehensive solution not only elevates operational efﬁciency but also sets a new standard for secure, user-friendly, and technologically advanced dental care applications in the digital era.
+
+site:
+https://feoridin.github.io/DGL409-SmileChart/index.html

@@ -129,8 +129,8 @@ get(child(dbref, "Selected"))
         var thisref = storageref.child(type).child(file.name).put(file);
         thisref.on(
           "state_changed",
-          function (snapshot) {},
-          function (error) {},
+          function (snapshot) { },
+          function (error) { },
           function () {
             // Uploaded completed successfully, now we can get the download URL
             thisref.snapshot.ref.getDownloadURL().then(function (downloadURL) {
@@ -207,12 +207,12 @@ get(child(dbref, "Selected"))
                 ref(
                   db,
                   "Patient/" +
-                    patientid.value +
-                    "/URLImages/" +
-                    today +
-                    "/" +
-                    link.download +
-                    "/"
+                  patientid.value +
+                  "/URLImages/" +
+                  today +
+                  "/" +
+                  link.download +
+                  "/"
                 ),
                 {
                   imageref: uploadRef.name,
@@ -276,11 +276,11 @@ function showchart() {
     child(
       dbref,
       "Patient/" +
-        patientid.value +
-        "/URLImages/" +
-        chartvalue +
-        "/" +
-        chartvalue1
+      patientid.value +
+      "/URLImages/" +
+      chartvalue +
+      "/" +
+      chartvalue1
     )
   ).then((snapshot) => {
     if (snapshot.exists()) {
@@ -330,23 +330,12 @@ function deletechart() {
   const storage = getStorage();
   const desertRef = sRef(
     storage,
-    "Teeth/Chart/" + patientid.value + "/" + chartvaluehead
+    "Teeth/Chart/"+patientid.value+"/"+chartvalue1+chartvalue 
   );
+  console.log(storage);
   console.log(chartvalue1);
   console.log(chartvalue);
   console.log(chartvaluehead);
-  remove(
-    ref(
-      db,
-      "Patient/" +
-        patientid.value +
-        "/URLImages/" +
-        chartvalue +
-        "/" +
-        chartvalue1
-    )
-  );
-  // Delete the file
   deleteObject(desertRef)
     .then(() => {
       // File deleted successfully
@@ -356,5 +345,17 @@ function deletechart() {
       // Uh-oh, an error occurred!
       console.log("This is the Error:" + error);
     });
+  remove(
+    ref(
+      db,
+      "Patient/" +
+      patientid.value +
+      "/URLImages/" +
+      chartvalue +
+      "/" +
+      chartvalue1
+    )
+  );
+
   location.reload();
 }
